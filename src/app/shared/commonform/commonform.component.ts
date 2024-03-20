@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-commonform',
+  selector: 'app-common-form',
   templateUrl: './commonform.component.html',
   styleUrls: ['./commonform.component.scss']
 })
-export class CommonformComponent implements OnInit {
+export class CommonFormComponent implements OnInit {
 
   constructor() { }
 

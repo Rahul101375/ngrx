@@ -1,9 +1,29 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+let base_uri2 = 'https://stgmotapi.dhwaniris.in/web/api/';
+let baseURL = "https://stg_idhinstep.dhwaniris.in/web/api/";
+
+let origin = window.location.hostname;
+let secratKey ="1234";
+let captchaSecretKet = '6LdqKrMmAAAAAJ7DYHSe6wThAtPnhYyEkP099ZbP'
+
+if(origin == 'uatidhinstepui.dhwaniris.in')
+baseURL = "https://uat_idhinstep.dhwaniris.in/web/api/";
+
+if(origin == 'idhinstep.dhwaniris.in')
+baseURL = "https://idhinstepapi.dhwaniris.in/web/api/";
+
+if(origin == 'idh-instep.com')
+baseURL = "https://api.idh-instep.com/web/api/";
+
+if(origin == 'www.idh-instep.com')
+baseURL = "https://api.idh-instep.com/web/api/";
 
 export const environment = {
-  production: false
+  production: true,
+  url2: base_uri2,
+  baseURL: baseURL,
+  secratKey:secratKey,
+  captchaSecretKet:captchaSecretKet,
+
 };
 
 /*
@@ -13,4 +33,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

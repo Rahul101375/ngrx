@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Home } from 'src/app/models/home';
+import {MatDialog} from '@angular/material/dialog';
+import { CommondailogComponent } from 'src/app/shared/commondailog/commondailog.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -34,9 +36,18 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(CommondailogComponent,{
+      data:''
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-commontable',
+  selector: 'app-common-table',
   templateUrl: './commontable.component.html',
   styleUrls: ['./commontable.component.scss']
 })
-export class CommontableComponent implements OnInit {
+export class CommonTableComponent implements OnInit {
 
   constructor() { }
 
