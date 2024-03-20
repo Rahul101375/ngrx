@@ -35,6 +35,15 @@ export class HeaderComponent implements OnInit {
       label:'Login', module:'',isActive:false,routeUrl:'login',permission:true
     }
   ]
+  public joinNowForms:any = [
+    { type: 'text', name: 'name', label: 'Name', required: true,columnSize:6 },
+    { type: 'email', name: 'email', label: 'Email', required: true,columnSize:6 },
+    { type: 'select', name: 'gender', label: 'Gender', options: ['Male', 'Female'], required: true,columnSize:2 },
+    { type: 'number', name: 'mobile', label: 'Mobile Number', required: true,columnSize:4 },
+    { type: 'select', name: 'type', label: 'I`m a', options: ['Other', 'other-2'], required: true,columnSize:6 },
+    { type: 'password', name: 'password', label: 'Password', required: true,columnSize:6 },
+    { type: 'password', name: 'confirmPassword', label: 'Confirm Password', required: true,columnSize:6 },
+  ];
 
   constructor(public dialog: MatDialog) {}
 
@@ -42,7 +51,11 @@ export class HeaderComponent implements OnInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(CommondailogComponent,{
-      data:''
+      maxWidth:'970px',
+      maxHeight:'auto',
+      backdropClass: 'blur-background',
+      panelClass: 'hide-background', 
+      data:this.joinNowForms
     });
 
     dialogRef.afterClosed().subscribe(result => {

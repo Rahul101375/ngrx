@@ -1,1 +1,24 @@
-<p>commonform works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" >
+    <div class="row">
+        <div *ngFor="let field of fields" [class]="'col-sm-' + field?.columnSize">
+            <mat-form-field appearance="legacy" class="w-100">
+                <ng-container [ngSwitch]="field.type">
+                    <input *ngSwitchCase="'text'" [type]="field.type" matInput [formControlName]="field.name"
+                        placeholder="{{ field.label }}" autocomplete="off"/>
+                    <input *ngSwitchCase="'email'" [type]="field.type" matInput [formControlName]="field.name"
+                        placeholder="{{ field.label }}" autocomplete="off"/>
+                    <mat-select *ngSwitchCase="'select'" [formControlName]="field.name" placeholder="{{ field.label }}">
+                        <mat-option *ngFor="let option of field.options" [value]="option">{{ option }}</mat-option>
+                    </mat-select>
+                    <input *ngSwitchCase="'number'" [type]="field.type" matInput [formControlName]="field.name"
+                        placeholder="{{ field.label }}" />
+                    <input *ngSwitchCase="'password'" [type]="field.type" matInput [formControlName]="field.name"
+                        placeholder="{{ field.label }}" />
+                </ng-container>
+                <mat-error *ngIf="form.get(field.name)?.errors?.['required']">* {{field?.name}} is required</mat-error>
+                <mat-error *ngIf="form.get(field.name)?.errors?.['email']">Invalid email</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <button mat-raised-button color="primary" type="submit" class="text-center" [disabled]="form.invalid">Submit</button>
+</form>

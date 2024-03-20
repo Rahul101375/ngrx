@@ -8,11 +8,12 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
   styleUrls: ['./commondailog.component.scss']
 })
 export class CommondailogComponent implements OnInit {
-
-  // constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+ formType : any
+  constructor(@Inject(MAT_DIALOG_DATA) public data:MatDialog) {}
 
   ngOnInit(): void {
-    // console.log("data",this.data)
+    console.log("dialog ",this.data)
+    this.formType = this.data;
   }
 
 }
