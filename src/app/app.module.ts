@@ -21,6 +21,9 @@ import { MaterialModuleComponent } from './materails/materail/materail.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule  } from '@ngrx/store';
 import { rootReducer } from './reducers';
+import { HttpClientModule } from '@angular/common/http';
+import { ButtonComponent } from './shared/commontable/button/button.component';
+import { SafeHtmlPipe } from './shared/pipe/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { rootReducer } from './reducers';
     ResourceViewsComponent,
     AboutUsComponent,
     OurPartnersComponent,
+    ButtonComponent,
+    SafeHtmlPipe,
     
   ],
   imports: [
@@ -47,7 +52,8 @@ import { rootReducer } from './reducers';
     BrowserAnimationsModule,
     MaterialModuleComponent,
     ReactiveFormsModule,
-    StoreModule.forRoot(rootReducer)
+    StoreModule.forRoot(rootReducer),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

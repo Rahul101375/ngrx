@@ -21,8 +21,8 @@ export class HttpService {
   return headers;
 }
 
-   getMethod(url:string , params?:any):Observable<any>{
-    return this.http.get(this.baseUrl + url + params, this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
+   getMethod(url:string ):Observable<any>{
+    return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
    }
 
     private errorHandler(response: any) {

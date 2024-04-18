@@ -7,13 +7,17 @@ import {Post} from '../models/post';
 
 
 
-@Injectable()
+@Injectable(
+  {
+    providedIn: 'root'
+  }
+)
 export class ApiService {
   constructor(private httpService: HttpService) {
   }
 
   getAllUser(): Observable<User[]> {
-    return this.httpService.getMethod('/users').pipe(map(data => data as User[]));
+    return this.httpService.getMethod('user/cms').pipe(map(data => data as User[]));
   }
 
   getUser(id: number): Observable<User> {
