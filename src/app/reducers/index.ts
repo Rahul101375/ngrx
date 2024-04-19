@@ -2,21 +2,40 @@ import { ActionReducerMap, createSelector } from "@ngrx/store";
 import * as fromUser from './user-reducer';
 export interface RootReducerState {
   users : fromUser.UserReducerState;
+  category : fromUser.CategoryReducerState;
+  impactStory : fromUser.ImpactStoryReducerState,
+  card : fromUser.CardReducerState
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
-  users : fromUser.UserReducer
+  users : fromUser.UserReducer,
+  category : fromUser.CategoryReducer,
+  impactStory : fromUser.ImpactStoryReducer,
+  card : fromUser.CardReducer
 }
 
 export const getUserState = (state : RootReducerState) => state.users;
-
+export const getCategoryState = (state : RootReducerState) => state.category;
+export const getImpactStoryState = (state : RootReducerState) => state.impactStory;
+export const getCardState = (state : RootReducerState) => state.card;
 // to make selector to get value to get one value from all values
 
-export const getUserLoading = createSelector(getUserState , fromUser.getLoading);
-export const getUserLoaded = createSelector(getUserState , fromUser.getLoaded);
-export const getUsers = createSelector(getUserState , fromUser.getUsers);
+export const getCmsUserLoading = createSelector(getUserState , fromUser.getCmsLoading);
+export const getCmsUserLoaded = createSelector(getUserState , fromUser.getCmsLoaded);
+export const getCmsUsers = createSelector(getUserState , fromUser.getCmsUsers);
 
 
+export const getCategoryUserLoading = createSelector(getCategoryState , fromUser.getCategoryLoading);
+export const getCategoryUserLoaded = createSelector(getCategoryState , fromUser.getCategoryLoaded);
+export const getCategoryUsers = createSelector(getCategoryState , fromUser.getCategoryUsers);
+
+export const getImpactStoryUserLoading = createSelector(getImpactStoryState , fromUser.getImpactStoryLoading);
+export const getImpactStoryUserLoaded = createSelector(getImpactStoryState , fromUser.getImpactStoryLoaded);
+export const getImpactStoryUsers = createSelector(getImpactStoryState , fromUser.getImpactStoryUsers);
+
+export const getCardUserLoading = createSelector(getCardState , fromUser.getCardLoading);
+export const getCardUserLoaded = createSelector(getCardState , fromUser.getCardLoaded);
+export const getCardUsers = createSelector(getCardState , fromUser.getCardUsers);
 
 // import * as fromUser from './user-reducer';
 // import * as fromPost from './post-reducer';

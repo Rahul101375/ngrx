@@ -32,3 +32,15 @@
 .imageContainer{
     animation: drift 25s linear infinite;
   }
+  .imageWidth{
+    width: -webkit-fill-available;
+  }
+.fontSmall{
+    font-size: small;
+}
+.defaultBackGroundColor{
+    background: #00625F;
+}
+.iconRadius{
+    border-radius: 5px;
+}

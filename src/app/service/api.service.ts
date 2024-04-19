@@ -16,8 +16,9 @@ export class ApiService {
   constructor(private httpService: HttpService) {
   }
 
-  getAllUser(): Observable<User[]> {
-    return this.httpService.getMethod('user/cms').pipe(map(data => data as User[]));
+  getAllUser(endPointInfo:string): Observable<User[]> {
+    console.log("endPointInfo",endPointInfo)
+    return this.httpService.getMethod(endPointInfo).pipe(map(data => data as User[]));
   }
 
   getUser(id: number): Observable<User> {
