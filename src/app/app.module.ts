@@ -21,9 +21,15 @@ import { MaterialModuleComponent } from './materails/materail/materail.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule  } from '@ngrx/store';
 import { rootReducer } from './reducers';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ButtonComponent } from './shared/commontable/button/button.component';
 import { SafeHtmlPipe } from './shared/pipe/safe-html.pipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function httpTranslateLoader(http: HttpClient):any {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -53,7 +59,14 @@ import { SafeHtmlPipe } from './shared/pipe/safe-html.pipe';
     MaterialModuleComponent,
     ReactiveFormsModule,
     StoreModule.forRoot(rootReducer),
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader : {
+        provide : TranslateLoader,
+        useFactory : httpTranslateLoader,
+        deps:[HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],

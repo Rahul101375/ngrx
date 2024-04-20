@@ -1,1 +1,1 @@
-<button mat-stroked-button class="buttonHover">{{buttonText}}</button>
+<button mat-stroked-button [ngClass]="buttonColor ? 'setDynamic' : 'buttonHover'">{{buttonText}}</button>

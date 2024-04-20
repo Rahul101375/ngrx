@@ -21,8 +21,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
 
-const data = [ CommonModule,
+const data = [
+CommonModule,
   MatButtonModule,
   MatToolbarModule,
   MatIconModule,
@@ -40,7 +42,8 @@ const data = [ CommonModule,
   MatTooltipModule,
   MatTableModule,
   MatPaginatorModule,
-  MatDialogModule 
+  MatDialogModule,
+  MatMenuModule
 ]
 @NgModule({
    imports: [data],

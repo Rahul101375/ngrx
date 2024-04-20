@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Home } from 'src/app/models/home';
 import {MatDialog} from '@angular/material/dialog';
 import { CommondailogComponent } from 'src/app/shared/commondailog/commondailog.component';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  public language :any[] = [
+    {label:"English",value:"en",flag:"../../../../assets/flags/en.jpg"},
+    {label:"France",value:"fr", flag:"../../../../assets/flags/fr.png"},
+    {label:"Korea",value:"kr", flag:"../../../../assets/flags/kr.png"},
+  ];
   publicHeader : Home[] = [
     {
       label:'Home', module:'',isActive:true,routeUrl:'home',permission:true
@@ -45,7 +50,7 @@ export class HeaderComponent implements OnInit {
     { type: 'password', name: 'confirmPassword', label: 'Confirm Password', required: true,columnSize:6 },
   ];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,) {}
 
   ngOnInit(): void {
   }
@@ -62,5 +67,7 @@ export class HeaderComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-
+  // languageDropdown(){
+  //   this.menuRef.toggleMenu()
+  // }
 }

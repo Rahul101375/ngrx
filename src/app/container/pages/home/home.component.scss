@@ -19,8 +19,8 @@
     // transform: scale(1.1);
 }
 .imageBorder{
-    border-left: 10px solid #00625F;
-    border-bottom: 10px solid #00625F;
+    border-left: 10px solid #47d985;
+    border-bottom: 10px solid #47d985;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -44,3 +44,14 @@
 .iconRadius{
     border-radius: 5px;
 }
+.impactStoryImageBorder{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.card-img-top {
+    // height: 11vw;
+    // object-fit: cover;
+    max-height: 200px;
+    min-height: 150px;
+    object-fit: cover;
+} 
