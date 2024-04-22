@@ -26,9 +26,9 @@ import { ButtonComponent } from './shared/commontable/button/button.component';
 import { SafeHtmlPipe } from './shared/pipe/safe-html.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-export function httpTranslateLoader(http: HttpClient):any {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+import { CookieService } from 'ngx-cookie-service';
+export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -65,10 +65,10 @@ export function httpTranslateLoader(http: HttpClient):any {
         provide : TranslateLoader,
         useFactory : httpTranslateLoader,
         deps:[HttpClient]
-      }
+      },
     })
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

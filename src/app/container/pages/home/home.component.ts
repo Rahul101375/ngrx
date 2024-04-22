@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
   public endPoints = Object.values(homePage);
   public keyItem = ['cms', 'impactStory', 'category', 'card'];
   public  subscriptions: Subscription[] = [];
+  public homeForms:any = [
+    { type: 'text', name: 'name', label: 'Name', required: true,columnSize:12 },
+    { type: 'email', name: 'email', label: 'Email', required: true,columnSize:12 },
+    { type: 'textarea', name: 'textarea', label: 'Message', required: true,columnSize:12 },
+  ];
   constructor(private idhRepositoryDataService : IdhRepositoryDataService) { }
 
   ngOnInit(): void {
@@ -96,5 +101,7 @@ getCardData(){
 
     }
   }
-  
+  homeForm(event:any){
+    console.log("form-home",event)
+  }
 }

@@ -1,4 +1,10 @@
 {
-    "home" : "Home",
-    "dashboard" : "Dashboard"
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "resources": "Resources",
+    "impactStory": "Impact Story",
+    "aboutUs": "About Us",
+    "ourPartners":"Our Partners",
+    "joinNow": "Join Now",
+    "login": "Login"
 }

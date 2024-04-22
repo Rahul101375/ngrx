@@ -17,13 +17,12 @@
                 <ng-container *ngFor="let item of publicHeader; let i=index">
                    <ng-container *ngIf="!['Join Now','Login'].includes(item.label); else loginInfo">
                     <li class="nav-item" [routerLinkActive]="item?.isActive ? 'active' : ''">
-                        <a class="nav-link" [routerLink]="item?.routeUrl">{{item?.label}}</a>
+                        <a class="nav-link" [routerLink]="item?.routeUrl">{{item?.labelTr ? (item.labelTr | translate) : '---'}}</a>
                     </li>
                    </ng-container>
                    <ng-template #loginInfo>
                     <li class="nav-item" [routerLinkActive]="item?.isActive ? 'active' : ''">
-                        <!-- <a class="nav-link" [routerLink]="item?.routeUrl" click="openDialog()">{{item?.label}}</a> -->
-                        <button mat-button (click)="openDialog()">{{item?.label}}</button>
+                        <button mat-button (click)="openDialog()">{{item?.labelTr ? (item.labelTr | translate) : '---'}}</button>
                     </li>
                    </ng-template>
                 </ng-container>
@@ -31,37 +30,10 @@
 
                 <!-- Common Language -->
                 <ng-container>
-                    
-                    <!-- <mat-icon (click)="languageDropdown()">language </mat-icon>
-                    <app-menu #menuRef></app-menu> -->
-                    <!-- <button mat-button (click)="menuRef.toggleMenu()">
-                        <mat-icon (click)="languageDropdown()">language </mat-icon>
-                    </button> -->
+                    <app-menu [matMenuContent]="language" [matMenuType]="'icon'" (languageEvent)="setLanguage($event)">
+                    </app-menu>
                 </ng-container>
             </ul>
-            <!-- <ul class="navbar-nav">
-                <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/link">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" routerLink="#">Action</a>
-                        <a class="dropdown-item" routerLink="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" routerLink="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" routerLink="#">Disabled</a>
-                </li>
-            </ul> -->
         </div>
     </div>
 </nav>

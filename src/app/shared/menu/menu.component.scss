@@ -1,0 +1,11 @@
+.languageIcon{
+    width: 20px;
+    height: 25px;
+}
+.languageBorder{
+    border-bottom: 2px solid brown;
+}
+.activeLanguage{
+    background: linear-gradient(331deg, blue, transparent);
+    border-bottom: none;
+}

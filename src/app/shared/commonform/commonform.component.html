@@ -2,6 +2,7 @@
     <div class="row">
         <div *ngFor="let field of fields" [class]="'col-sm-' + field?.columnSize">
             <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>{{field.label}}</mat-label>
                 <ng-container [ngSwitch]="field.type">
                     <input *ngSwitchCase="'text'" [type]="field.type" matInput [formControlName]="field.name"
                         placeholder="{{ field.label }}" autocomplete="off"/>
@@ -14,11 +15,15 @@
                         placeholder="{{ field.label }}" />
                     <input *ngSwitchCase="'password'" [type]="field.type" matInput [formControlName]="field.name"
                         placeholder="{{ field.label }}" />
+                    <textarea  *ngSwitchCase="'textarea'" matInput  [formControlName]="field.name" placeholder="{{ field.label }}" ></textarea>
                 </ng-container>
                 <mat-error *ngIf="form.get(field.name)?.errors?.['required']">* {{field?.name}} is required</mat-error>
                 <mat-error *ngIf="form.get(field.name)?.errors?.['email']">Invalid email</mat-error>
             </mat-form-field>
         </div>
     </div>
-    <button mat-raised-button color="primary" type="submit" class="text-center" [disabled]="form.invalid">Submit</button>
+    <div [ngClass]="isButtonStyle ? 'backGroundColor p-1 text-center buttonBorderRadius' : ''">
+        <button mat-raised-button type="submit" [ngClass]="isButtonStyle ? 'text-white textColor bg-transparent border-0 f-18 buttonFontWeight' : '' " [disabled]="form.invalid">{{buttonText}}</button>
+    </div>
 </form>
+<!-- -->

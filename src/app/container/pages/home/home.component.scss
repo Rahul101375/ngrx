@@ -1,9 +1,9 @@
-.backGroundColor{
-    background-color: #00625F;
-}
-.textColor{
-    color: white;
-}
+// .backGroundColor{
+//     background-color: #00625F;
+// }
+// .textColor{
+//     color: white;
+// }
 
 .backGroundImageBanner{
     background-repeat: no-repeat;
@@ -12,9 +12,9 @@
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
-.defaultColor{
-    color: #00625F;
-}
+// .defaultColor{
+//     color: #00625F;
+// }
 :hover .imageHover{
     // transform: scale(1.1);
 }
@@ -55,3 +55,20 @@
     min-height: 150px;
     object-fit: cover;
 } 
+.imageWidth{
+    width: -webkit-fill-available;
+}
+.cardBorderRadius{
+    border-radius: 8px;
+}
+.imageAnimation{
+    animation-name: imageMove;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes imageMove{
+   0%, 25%, 50%, 75%{
+        transform: translate(200px,0px);
+    }
+}

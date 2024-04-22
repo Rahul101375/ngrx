@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-common-form',
@@ -7,7 +7,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CommonFormComponent implements OnInit {
   form!: FormGroup;
-  @Input() fields: any[] = []
+  @Input() fields: any[] = [];
+  @Input() isButtonStyle : boolean = false;
+  @Input() buttonText:string = "Submit";
+  @Output() submitForm : EventEmitter<any> = new EventEmitter<any>()
   constructor(private fb: FormBuilder) { }
 
 
@@ -33,6 +36,7 @@ export class CommonFormComponent implements OnInit {
     } else {
       this.markAllFieldsAsTouched(this.form);
     }
+    this.submitForm.emit(this.form.value);
   }
 
   markAllFieldsAsTouched(group: FormGroup) {

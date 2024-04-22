@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,13 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit{
   title = 'ngRxIdh';
-  constructor(private translateService : TranslateService){}
+  public lang : string = "en";
+  constructor(private translateService : TranslateService,private cookieService : CookieService){
+   
+  }
   ngOnInit(): void {
-    this.translateService.setDefaultLang('en')
+    this.cookieService.set("lang",this.lang)
+    this.translateService.setDefaultLang(this.cookieService.get('lang') || this.lang);
   }
   
 }

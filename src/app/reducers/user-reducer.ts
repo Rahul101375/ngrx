@@ -167,7 +167,6 @@ export function CategoryReducer(state = categoryInitialState, action:Action):Cat
 }
 
 export function ImpactStoryReducer(state = impactStoryInitialState, action:Action):ImpactStoryReducerState{
-  debugger
   switch(action.type){
     case USER_LIST_REQUEST_IMPACT_STORY : {
       return {

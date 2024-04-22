@@ -1,15 +1,26 @@
-<!-- <button mat-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">{{ buttonLabel }}</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
-  <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voice mail</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>notifications_off</mat-icon>
-    <span>Disable alerts</span>
-  </button>
-</mat-menu> -->
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"  #languageMenuTrigger="matMenuTrigger">
+  <ng-container [ngSwitch]="matMenuType">
+    <ng-container *ngSwitchCase="'icon'">
+      <mat-icon>language</mat-icon>
+    </ng-container>
+    <ng-container *ngSwitchCase="'text'">
+      {{buttonLabel}}
+    </ng-container>
+  </ng-container>
+ </button>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngFor="let item of matMenuContent">
+      <div class="w-100 languageBorder" [ngClass]="item?.isSelect ? 'activeLanguage' : ''">
+        <button mat-menu-item (click)="matToggleAction(item)">
+          <div class="row align-item-center">
+            <div class="col-md-4">
+              <img [src]="item?.flag" [alt]="item?.label" class="mx-2 languageIcon">
+            </div>
+            <div class="col-md-8">
+              {{item?.label}}
+            </div>
+          </div>
+        </button>
+      </div>
+    </ng-container>
+  </mat-menu>

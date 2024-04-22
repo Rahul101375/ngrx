@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 @Component({
   selector: 'app-menu',
@@ -6,21 +6,16 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  @Input() isMatMenuOpen : boolean = false;
-  @Input() matMenuContent : any ;
-  menuTrigger!: MatMenuTrigger;
+  @Input() matMenuContent : any;
+  @Input() matMenuType : string ='' ;
   @Input() buttonLabel: string = 'Menu';
+  @Output() languageEvent : EventEmitter<any> =  new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
-    console.log("matMenuContent",this.matMenuContent)
   }
-  
-
-  // toggleMenu() {
-  //   if (this.menuTrigger) {
-  //     this.menuTrigger.toggleMenu();
-  //   }
-  // }
+  matToggleAction(event:any){
+    this.languageEvent.emit(event)
+  }
 
 }
