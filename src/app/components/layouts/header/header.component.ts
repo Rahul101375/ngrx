@@ -12,34 +12,34 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class HeaderComponent implements OnInit {
   public language :any[] = [
-    {label:"English",value:"en",flag:"../../../../assets/flags/en.jpg",isSelect:true},
-    {label:"France",value:"fr", flag:"../../../../assets/flags/fr.png",isSelect:false},
-    {label:"Korea",value:"kr", flag:"../../../../assets/flags/kr.png",isSelect:false},
+    {label:"english",value:"en",flag:"../../../../assets/flags/en.jpg",isSelect:true},
+    {label:"france",value:"fr", flag:"../../../../assets/flags/fr.png",isSelect:false},
+    {label:"korea",value:"kr", flag:"../../../../assets/flags/kr.png",isSelect:false},
   ];
   publicHeader : any = [
     {
-      label:'Home', module:'',isActive:true,routeUrl:'home',permission:true,labelTr : "home"
+      label:'home', module:'',isActive:true,routeUrl:'home',permission:true,labelTr : "home"
     },
     {
-      label:'Dashboard', module:'',isActive:false,routeUrl:'dashboard',permission:true,labelTr : "dashboard"
+      label:'dashboard', module:'',isActive:false,routeUrl:'dashboard',permission:true,labelTr : "dashboard"
     },
     {
-      label:'Resources', module:'',isActive:false,routeUrl:'resources',permission:true,labelTr : "resources"
+      label:'resources', module:'',isActive:false,routeUrl:'resources',permission:true,labelTr : "resources"
     },
     {
-      label:'Impact Stories', module:'',isActive:false,routeUrl:'impact-stories',permission:true,labelTr : "impactStory"
+      label:'impactStory', module:'',isActive:false,routeUrl:'impact-stories',permission:true,labelTr : "impactStory"
     },
     {
-      label:'About Us', module:'',isActive:false,routeUrl:'about-us',permission:true,labelTr : "aboutUs"
+      label:'aboutUs', module:'',isActive:false,routeUrl:'about-us',permission:true,labelTr : "aboutUs"
     },
     {
-      label:'Our Partners', module:'',isActive:false,routeUrl:'our-partners',permission:true,labelTr : "ourPartners"
+      label:'ourPartners', module:'',isActive:false,routeUrl:'our-partners',permission:true,labelTr : "ourPartners"
     },
     {
-      label:'Join Now', module:'',isActive:false,routeUrl:'join-now',permission:true,labelTr : "joinNow"
+      label:'joinNow', module:'',isActive:false,routeUrl:'join-now',permission:true,labelTr : "joinNow"
     },
     {
-      label:'Login', module:'',isActive:false,routeUrl:'login',permission:true,labelTr : "login"
+      label:'login', module:'',isActive:false,routeUrl:'login',permission:true,labelTr : "login"
     }
   ]
   public joinNowForms:any = [

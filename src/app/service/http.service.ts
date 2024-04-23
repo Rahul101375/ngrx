@@ -24,6 +24,9 @@ export class HttpService {
    getMethod(url:string ):Observable<any>{
     return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
    }
+   allPostMethod(url:string,body:any){
+    return this.http.post(this.baseUrl + url , body ,this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
+   }
 
     private errorHandler(response: any) {
     const error = response.error;

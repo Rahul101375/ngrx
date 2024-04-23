@@ -27,6 +27,10 @@ import { SafeHtmlPipe } from './shared/pipe/safe-html.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieService } from 'ngx-cookie-service';
+import { ToggleButtonComponent } from './shared/commonComponents/toggle-button/toggle-button.component';
+import { MatTabComponent } from './shared/commonComponents/mat-tab/mat-tab.component';
+import { PieComponent } from './container/pages/chart/pie/pie.component';
+import { GroupbarComponent } from './container/pages/chart/groupbar/groupbar.component';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -50,6 +54,10 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
     OurPartnersComponent,
     ButtonComponent,
     SafeHtmlPipe,
+    ToggleButtonComponent,
+    MatTabComponent,
+    PieComponent,
+    GroupbarComponent,
     
   ],
   imports: [

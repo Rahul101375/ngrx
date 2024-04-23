@@ -17,12 +17,12 @@
                 <ng-container *ngFor="let item of publicHeader; let i=index">
                    <ng-container *ngIf="!['Join Now','Login'].includes(item.label); else loginInfo">
                     <li class="nav-item" [routerLinkActive]="item?.isActive ? 'active' : ''">
-                        <a class="nav-link" [routerLink]="item?.routeUrl">{{item?.labelTr ? (item.labelTr | translate) : '---'}}</a>
+                        <a class="nav-link" [routerLink]="item?.routeUrl">{{item?.label ? (item.label | translate) : '---'}}</a>
                     </li>
                    </ng-container>
                    <ng-template #loginInfo>
                     <li class="nav-item" [routerLinkActive]="item?.isActive ? 'active' : ''">
-                        <button mat-button (click)="openDialog()">{{item?.labelTr ? (item.labelTr | translate) : '---'}}</button>
+                        <button mat-button (click)="openDialog()">{{item?.label ? (item.label | translate) : '---'}}</button>
                     </li>
                    </ng-template>
                 </ng-container>

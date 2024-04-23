@@ -1,17 +1,22 @@
 import { ActionReducerMap, createSelector } from "@ngrx/store";
 import * as fromUser from './user-reducer';
+import * as dashboard from './daashboard-reducer';
 export interface RootReducerState {
   users : fromUser.UserReducerState;
   category : fromUser.CategoryReducerState;
   impactStory : fromUser.ImpactStoryReducerState,
-  card : fromUser.CardReducerState
+  card : fromUser.CardReducerState,
+  pie : dashboard.PieReducerState,
+  groupBar : dashboard.GroupBarReducerState
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
   users : fromUser.UserReducer,
   category : fromUser.CategoryReducer,
   impactStory : fromUser.ImpactStoryReducer,
-  card : fromUser.CardReducer
+  card : fromUser.CardReducer,
+  pie : dashboard.PieReducer,
+  groupBar : dashboard.GroupBarReducer
 }
 
 export const getUserState = (state : RootReducerState) => state.users;
@@ -80,3 +85,14 @@ export const getCardUsers = createSelector(getCardState , fromUser.getCardUsers)
 // };
 
 
+// dashboard start
+export const getProgramViewImpactPieState = (state : RootReducerState) => state.pie;
+export const getProgramViewImpactGroupBarState = (state : RootReducerState) => state.groupBar;
+
+export const getProgramViewImpactPieLoading = createSelector(getProgramViewImpactPieState,dashboard.getProgramViewImpactPieDataForLoading);
+export const getProgramViewImpactPieLoaded= createSelector(getProgramViewImpactPieState,dashboard.getProgramViewImpactPieDataForLoaded)
+export const getProgramViewImpactPie = createSelector(getProgramViewImpactPieState,dashboard.getProgramViewImpactPieDataForPie)
+
+export const getProgramViewImpactGroupBarLoading = createSelector(getProgramViewImpactGroupBarState,dashboard.getProgramViewImpactGroupBarDataForLoading);
+export const getProgramViewImpactGroupBarLoaded= createSelector(getProgramViewImpactGroupBarState,dashboard.getProgramViewImpactGroupBarDataForLoaded)
+export const getProgramViewImpactGroupBar = createSelector(getProgramViewImpactGroupBarState,dashboard.getProgramViewImpactGroupBarDataForGroupBar)

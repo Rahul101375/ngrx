@@ -146,7 +146,6 @@ export function UserReducer(state = initialState, action:Action):UserReducerStat
 }
 
 export function CategoryReducer(state = categoryInitialState, action:Action):CategoryReducerState{
-  debugger
   switch(action.type){
     case USER_LIST_REQUEST_CATEGORY : {
       return {
@@ -187,7 +186,6 @@ export function ImpactStoryReducer(state = impactStoryInitialState, action:Actio
 }
 
 export function CardReducer(state = cardInitialState, action:Action):CardReducerState{
-  debugger
   switch(action.type){
     case USER_LIST_REQUEST_CARD: {
       return {

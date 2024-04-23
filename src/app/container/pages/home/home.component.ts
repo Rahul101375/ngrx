@@ -3,6 +3,7 @@ import { Observable, combineLatest, forkJoin, map, zip } from 'rxjs';
 import { homePage } from 'src/app/service/api_end_point';
 import { IdhRepositoryDataService } from 'src/app/service/idhRepositoryData.service';
 import { Subscription } from 'rxjs';
+import { ApiService } from 'src/app/service/api.service';
 
 @Component({
   selector: 'app-home',
@@ -22,31 +23,13 @@ export class HomeComponent implements OnInit {
     { type: 'email', name: 'email', label: 'Email', required: true,columnSize:12 },
     { type: 'textarea', name: 'textarea', label: 'Message', required: true,columnSize:12 },
   ];
-  constructor(private idhRepositoryDataService : IdhRepositoryDataService) { }
+  constructor(private idhRepositoryDataService : IdhRepositoryDataService,private apiService : ApiService) { }
 
   ngOnInit(): void {
-    // this.fetchData();
     this.getCmsData();
     this.getCategoryData();
     this.getImpactStoryData();
-    this.getCardData()
   }
- 
-//   fetchData() {
-//     const observables = this.endPoints.map(endPoint => this.idhRepositoryDataService.getList(endPoint, true));
-    
-//     forkJoin(observables).subscribe({
-//         next: (responses: any[]) => {
-//             responses.forEach((res, i) => {
-//                 this.otherDataRequiredInHome[this.keyItem[i]] = res;
-//             });
-//             console.log("this.otherDataRequiredInHome", this.otherDataRequiredInHome);
-//         },
-//         error: (error) => {
-//             console.error("Error fetching data:", error);
-//         }
-//     });
-// }
 getCmsData(){
   const userData$ = this.idhRepositoryDataService.getList(homePage.USER_CMS)[1];
   userData$.subscribe({
@@ -103,5 +86,13 @@ getCardData(){
   }
   homeForm(event:any){
     console.log("form-home",event)
+    this.apiService.postMethod(homePage.USER_INQUIRY,event).subscribe({
+      next:(response)=>{
+        console.log("res",response);
+      },
+      error : (error)=>{
+        console.log("error",error)
+      }
+    })
   }
 }

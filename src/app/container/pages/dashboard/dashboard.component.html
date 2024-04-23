@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<div class="row m-2 align-item-center">
+    <app-toggle-button [toggle]="toggleButtons" (toggleClick)="toggleAction($event)"></app-toggle-button>
+</div>
+
+<div class="row m-2">
+    <app-mat-tab [selectedTabs]="tabButton" (tabMenuClick)="tabMenuAction($event)"></app-mat-tab>
+</div>
+
+<div class="row m-2 align-item-center">
+    <app-toggle-button [toggle]="child" (subToggleClick)="subToggleAction($event)" [type]="'subType'"></app-toggle-button>
+</div>

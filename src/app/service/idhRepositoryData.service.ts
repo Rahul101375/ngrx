@@ -32,40 +32,6 @@ export class IdhRepositoryDataService {
         return [loaded$, getUserData]
     }
 
-    // getList(endPoint: string, force: boolean = false): Observable<User[]> {
-    //     if (!force) {
-    //         const loading$ = this.store.select(getUserLoading);
-    //         const loaded$ = this.store.select(getUserLoaded);
-            
-    //         return combineLatest([loaded$, loading$]).pipe(
-    //             switchMap(([loaded, loading]) => {
-    //                 if (!loaded && !loading) {
-    //                     this.store.dispatch(new UserListRequestAction());
-    //                     return this.apiService.getAllUser(endPoint).pipe(
-    //                         tap(res => this.store.dispatch(new UserListSuccessAction({ data: res }))),
-    //                         catchError(error => {
-    //                             console.error("Error fetching user data:", error);
-    //                             return of([]); // Return empty array on error
-    //                         })
-    //                     );
-    //                 } else {
-    //                     return this.store.select(getUsers); // Return existing user data
-    //                 }
-    //             })
-    //         );
-    //     } else {
-    //         // If force is true, always make the API request
-    //         this.store.dispatch(new UserListRequestAction());
-    //         return this.apiService.getAllUser(endPoint).pipe(
-    //             tap(res => this.store.dispatch(new UserListSuccessAction({ data: res }))),
-    //             catchError(error => {
-    //                 console.error("Error fetching user data:", error);
-    //                 return of([]); // Return empty array on error
-    //             })
-    //         );
-    //     }
-    // }
-
     getCategoryList(endPoint:string, force: boolean = false): [Observable<boolean>, Observable<User[]>] {
         const loading$ = this.store.select(getCategoryUserLoading);
         const loaded$ = this.store.select(getCategoryUserLoaded);

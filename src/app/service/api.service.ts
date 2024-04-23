@@ -25,16 +25,19 @@ export class ApiService {
    return this.httpService.getMethod('/users/' + id);
   }
 
-  getAllPost(): Observable<Post[]> {
-    const data: Post[] = [{
-      title: 'post 1', id: 1,
-      comments: [{id: 11, description: 'comment 1'}, {id: 13, description: 'comment 2'}]
-    }, {
-      title: 'post 2', id: 2,
-      comments: [{id: 121, description: 'comment 3'}, {id: 15, description: 'comment 4'}]
-    }];
-    return new Observable(observer => {
-      observer.next(data);
-    });
+  // getAllPost(): Observable<Post[]> {
+  //   const data: Post[] = [{
+  //     title: 'post 1', id: 1,
+  //     comments: [{id: 11, description: 'comment 1'}, {id: 13, description: 'comment 2'}]
+  //   }, {
+  //     title: 'post 2', id: 2,
+  //     comments: [{id: 121, description: 'comment 3'}, {id: 15, description: 'comment 4'}]
+  //   }];
+  //   return new Observable(observer => {
+  //     observer.next(data);
+  //   });
+  // }
+  postMethod(endPointInfo:string,body:any){
+    return this.httpService.allPostMethod(endPointInfo,body).pipe(map(data => data))
   }
 }

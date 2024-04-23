@@ -22,7 +22,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle'
+import {MatTabsModule} from '@angular/material/tabs';
 const data = [
 CommonModule,
   MatButtonModule,
@@ -43,7 +44,9 @@ CommonModule,
   MatTableModule,
   MatPaginatorModule,
   MatDialogModule,
-  MatMenuModule
+  MatMenuModule,
+  MatButtonToggleModule,
+  MatTabsModule
 ]
 @NgModule({
    imports: [data],

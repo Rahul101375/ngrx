@@ -72,3 +72,12 @@
         transform: translate(200px,0px);
     }
 }
+
+.test{
+    // transition: all .2s ease-out;
+    width: 230px;
+    height: auto;
+    display: inline-block;
+    margin: 0 10px;
+    transition: all .2s ease-out;
+}
