@@ -1,0 +1,8 @@
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+  <ng-container *ngFor="let item of toggle">
+    <mat-button-toggle [value]="item.value" (click)="toggleSelect(item)" [ngClass]="item?.active ? 'backGroundColor textColor' : 'bg-white text-black'">
+     <img [src]="item.active ? item.activeImage : item.unActiveImage" [alt]="item.value" class="imageIcon" *ngIf="item.activeImage || item.unActiveImage"> {{item.label | translate}}
+    </mat-button-toggle>
+  </ng-container>
+</mat-button-toggle-group>
+

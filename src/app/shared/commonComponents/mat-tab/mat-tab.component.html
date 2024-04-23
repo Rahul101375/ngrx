@@ -1,0 +1,9 @@
+<mat-tab-group animationDuration="2000ms" (selectedTabChange)="tabSelection($event)">
+    <ng-container *ngFor="let item of selectedTabs; let i=index">
+        <ng-container *ngFor="let insideItem of item[selected[i]];">
+            <mat-tab [label]="insideItem.label | translate" >
+
+            </mat-tab>
+        </ng-container>
+    </ng-container>
+  </mat-tab-group>
