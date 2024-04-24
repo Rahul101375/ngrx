@@ -9,3 +9,31 @@
 <div class="row m-2 align-item-center">
     <app-toggle-button [toggle]="child" (subToggleClick)="subToggleAction($event)" [type]="'subType'"></app-toggle-button>
 </div>
+
+<ng-template #dashboardTemplate let-item="data" let-i="index" let-type="key">
+    <ng-container *ngFor="let value of item">
+        <div class="col-md-6 shadow">
+            <div class="row justify-content-start align-item-center mx-1 px-1">
+                <img [src]="value?.indicator_icons" [alt]="value?.name">
+                <h4 class="defaultColor">{{value?.name | translate}}</h4>
+            </div>
+            <div class="" [ngSwitch]="type">
+                <ng-container *ngSwitchCase="'pie'">
+                    <app-pie [pieChartId]="'pie_' + (i+1)" [pieData]="value.short_key"></app-pie>
+                </ng-container>
+                <ng-container *ngSwitchCase="'groupBar'">
+                    <app-groupbar [groupBarChartId]="'groupBar' + (i+1)" [groupBarData]="value.details"></app-groupbar>
+                </ng-container>
+                <ng-container *ngSwitchCase="'donot'">
+                    <app-donot [groupBarChartId]="'donot' + (i+1)" [groupBarData]="value.details"></app-donot>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<div class="row justify-content-md-between align-item-center">
+    <ng-container *ngFor="let tab of currentTab; let i=index">
+        <ng-container *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
+    </ng-container>
+</div>

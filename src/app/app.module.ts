@@ -30,7 +30,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToggleButtonComponent } from './shared/commonComponents/toggle-button/toggle-button.component';
 import { MatTabComponent } from './shared/commonComponents/mat-tab/mat-tab.component';
 import { PieComponent } from './container/pages/chart/pie/pie.component';
-import { GroupbarComponent } from './container/pages/chart/groupbar/groupbar.component';
+import { GroupBarComponent } from './container/pages/chart/groupbar/groupbar.component';
+import { DonotComponent } from './container/pages/chart/donot/donot.component';
+import { LineComponent } from './container/pages/chart/line/line.component';
+import { TimeLineComponent } from './container/pages/chart/time-line/time-line.component';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -57,7 +60,10 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
     ToggleButtonComponent,
     MatTabComponent,
     PieComponent,
-    GroupbarComponent,
+    GroupBarComponent,
+    DonotComponent,
+    LineComponent,
+    TimeLineComponent,
     
   ],
   imports: [

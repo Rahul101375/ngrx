@@ -211,7 +211,7 @@ export class DashboardComponent implements OnInit {
   ]
   public child:any =[]
   dashboardData: any = {};
- 
+  currentTab :string[] = []
   constructor(private dashboardDataService:DashboardDataService) { }
 
   ngOnInit(): void {
@@ -240,6 +240,8 @@ export class DashboardComponent implements OnInit {
     pie.subscribe({
       next : (response)=>{
         this.dashboardData.pie = response;
+        this.currentTab.push("pie");
+        this.currentTab = [... new Set(this.currentTab)]
       },
       error : (error)=>{
         console.log("programView pie",error)
@@ -247,10 +249,13 @@ export class DashboardComponent implements OnInit {
     })
   }
   getGroupBarData(){
-    const groupBar = this.dashboardDataService.getGroupBardList(dashboard.programView.IMPACT_SUMMARY.GROUP_BAR_CHART)[1];
+    let extra = '?from=&to=&is_month=false'
+    const groupBar = this.dashboardDataService.getGroupBardList(dashboard.programView.IMPACT_SUMMARY.GROUP_BAR_CHART+extra)[1];
     groupBar.subscribe({
       next : (response)=>{
         this.dashboardData.groupBar = response;
+        this.currentTab.push("groupBar");
+        this.currentTab = [... new Set(this.currentTab)]
       },
       error : (error)=>{
         console.log("programView groupBar",error)
