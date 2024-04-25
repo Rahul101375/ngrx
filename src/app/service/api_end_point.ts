@@ -13,17 +13,20 @@ export const dashboard = {
         IMPACT_SUMMARY : {
             PIE_CHART : "programview/impact-summary/pie-chart",
             GROUP_BAR_CHART :"programview/impact-summary/group-bar-chart",
+            CARD :"programview/impact-summary/card",
+            IPSA :"programview/impact-summary/ipsa",
         },
         SOCIAL_IMPACT : {
             PIE_CHART : "programview/social-impact/pie-chart",
             GROUP_BAR_CHART :"programview/social-impact/group-bar-chart",
+            TIME_LINE_CHART : "programview/social-impact/timeline",
+            CARD_CHART :"programview/social-impact/card",
         },
         ENVIRONMENT_IMPACT : {
             PIE_CHART : "programview/environmental-impact/pie-chart",
-            GROUP_BAR_CHART :"programview/environmental-impact/group-bar-chart",
             TIMELINE_CHART : "programview/environmental-impact/timeline",
             DONUT_CHART :"programview/environmental-impact/donut-chart",
-
+            GROUP_BAR_CHART :"programview/environmental-impact/group-bar-chart",
         }
     },
     countryView:{

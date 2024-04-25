@@ -7,12 +7,21 @@
 </div>
 
 <div class="row m-2 align-item-center">
-    <app-toggle-button [toggle]="child" (subToggleClick)="subToggleAction($event)" [type]="'subType'"></app-toggle-button>
+    <app-toggle-button [toggle]="child" (subToggleClick)="subToggleAction($event)"
+        [type]="'subType'"></app-toggle-button>
 </div>
 
 <ng-template #dashboardTemplate let-item="data" let-i="index" let-type="key">
+    <div class="row justify-content-md-between align-item-center">
+        <div class="col-md-6 shadow" *ngIf="type === 'country'">
+            World Map
+        </div>
+        <div class="col-md-6" *ngIf="type === 'programViewCard'">
+            <app-card [columnSize]="'4'" [cardData]="item"></app-card>
+        </div>
+    </div>
     <ng-container *ngFor="let value of item">
-        <div class="col-md-6 shadow">
+        <div class="col-md-6 shadow" *ngIf="!['country','programViewCard'].includes(type)">
             <div class="row justify-content-start align-item-center mx-1 px-1">
                 <img [src]="value?.indicator_icons" [alt]="value?.name">
                 <h4 class="defaultColor">{{value?.name | translate}}</h4>
@@ -34,6 +43,7 @@
 
 <div class="row justify-content-md-between align-item-center">
     <ng-container *ngFor="let tab of currentTab; let i=index">
-        <ng-container *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
+        <ng-container
+            *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
     </ng-container>
 </div>

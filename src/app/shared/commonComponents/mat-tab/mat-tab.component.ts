@@ -16,6 +16,10 @@ export class MatTabComponent implements OnInit {
   }
   tabSelection(tabData:any){
     this.chields = this.selectedTabs[0][this.selected[tabData.index]][tabData.index].child ? this.selectedTabs[0][this.selected[tabData.index]][tabData.index].child : [];
-    this.tabMenuClick.emit(this.chields)
+    let obj = {
+      index:tabData.index,
+      chields:this.chields
+    }
+    this.tabMenuClick.emit(obj)
   }
 }

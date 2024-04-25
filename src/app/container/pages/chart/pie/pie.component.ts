@@ -41,9 +41,6 @@ export class PieComponent implements OnInit {
       options: {
         responsive: true,
         maintainAspectRatio: true,
-      //   tooltips: {
-      //     enabled: false
-      // },
         plugins: {
           legend: {
             display: true,
@@ -58,7 +55,7 @@ export class PieComponent implements OnInit {
                 let sum = 0;
                 let dataArr = ctx.chart.data.datasets[0].data;
                 dataArr.map((data:any) => {
-                    sum += data;
+                    sum += parseInt(data,10);
                 });
                 console.log("sum",sum)
                 let percentage = (value*100 / sum).toFixed(2)+"%";
