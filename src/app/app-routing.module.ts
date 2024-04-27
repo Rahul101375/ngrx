@@ -6,8 +6,10 @@ import { ResourceComponent } from './container/pages/resources/resource/resource
 import { AboutUsComponent } from './container/pages/about-us/about-us.component';
 import { ImpactStoriesComponent } from './container/pages/impactStories/impact-stories/impact-stories.component';
 import { OurPartnersComponent } from './container/pages/our-partners/our-partners.component';
+import { LoaderComponent } from './shared/commonComponents/loader/loader.component';
 
 const routes: Routes = [
+  {path:'',component:LoaderComponent},
   {path:'home',component:HomeComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'resources',component:ResourceComponent},

@@ -11,39 +11,63 @@
         [type]="'subType'"></app-toggle-button>
 </div>
 
+
 <ng-template #dashboardTemplate let-item="data" let-i="index" let-type="key">
-    <div class="row justify-content-md-between align-item-center">
-        <div class="col-md-6 shadow" *ngIf="type === 'country'">
-            World Map
-        </div>
-        <div class="col-md-6" *ngIf="type === 'programViewCard'">
-            <app-card [columnSize]="'4'" [cardData]="item"></app-card>
-        </div>
+    <div *ngIf="type === 'country'">
+        World Map
     </div>
-    <ng-container *ngFor="let value of item">
-        <div class="col-md-6 shadow" *ngIf="!['country','programViewCard'].includes(type)">
+    <div *ngIf="['programViewCard','socialCard'].includes(type)">
+        <app-card [columnSize]="'4'" [cardData]="item"></app-card>
+    </div>
+    <ng-container *ngFor="let value of item; let j=index">
+        <div >
             <div class="row justify-content-start align-item-center mx-1 px-1">
                 <img [src]="value?.indicator_icons" [alt]="value?.name">
-                <h4 class="defaultColor">{{value?.name | translate}}</h4>
+                <h4 class="defaultColor">{{ ['programViewIpsa'].includes(type) && value?.headers?.length ? (value.heading) :(value?.name ) | translate}}</h4>
             </div>
-            <div class="" [ngSwitch]="type">
-                <ng-container *ngSwitchCase="'pie'">
-                    <app-pie [pieChartId]="'pie_' + (i+1)" [pieData]="value.short_key"></app-pie>
+            <div>
+                <ng-container *ngIf="['pie','environmentalPie'].includes(type)">
+                    <app-pie [pieChartId]="'pie_' + (i+1+j)" [pieData]="value.short_key"></app-pie>
+                    <pre>
+                        "type ---pie"  >>>>{{type}}
+                        "data"  >>>> {{value. short_key | json}}
+                    </pre>
                 </ng-container>
-                <ng-container *ngSwitchCase="'groupBar'">
-                    <app-groupbar [groupBarChartId]="'groupBar' + (i+1)" [groupBarData]="value.details"></app-groupbar>
+                <ng-container *ngIf="['socialTimeLine','environmentalTimeLine'].includes(type)">
+                    <app-groupBar [groupBarChartId]="'groupBar_' + (i+1+j)" [groupBarData]="value.short_key"></app-groupBar>
+                    <pre>
+                        "type ---timeline"  >>>>{{type}}
+                        "data"  >>>> {{value. short_key | json}}
+                    </pre>
                 </ng-container>
-                <ng-container *ngSwitchCase="'donot'">
-                    <app-donot [groupBarChartId]="'donot' + (i+1)" [groupBarData]="value.details"></app-donot>
+                <ng-container *ngIf="['groupBar','socialGroupBar','environmentalGroupBar'].includes(type)">
+                    <app-groupBar [groupBarChartId]="'groupBar_' + (i+1+j)" [groupBarData]="value.details"></app-groupBar>
+                    <pre>
+                        "type --- groupBar"  >>>>{{type}}
+                        "data"  >>>> {{value. details | json}}
+                    </pre>
+                </ng-container>
+                <ng-container *ngIf="['donut','socialDonut','environmentalDonut','socialPie'].includes(type)">
+                    <app-donut [donutChartId]="'donut_' + (i+1+j)" [donutData]="value.short_key"></app-donut>
+                    <pre>
+                        "type  --- donut"  >>>>{{type}}
+                        "data"  >>>> {{value. short_key | json}}
+                    </pre>
+                </ng-container>
+                <ng-container>
+                    <app-common-table [displayedColumns]="value.headers" [values]="value.values" *ngIf="value?.headers?.length"></app-common-table>
                 </ng-container>
             </div>
         </div>
     </ng-container>
 </ng-template>
 
-<div class="row justify-content-md-between align-item-center">
+<div class="row justify-content-md-between m-3 md-3">
     <ng-container *ngFor="let tab of currentTab; let i=index">
-        <ng-container
-            *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
+        <div class="col-md-6" [ngClass]=" tab === 'programViewCard' ? '' : 'mat-card my-3' ">
+            <ng-container
+                *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
+        </div>
     </ng-container>
 </div>
+

@@ -1,0 +1,94 @@
+#box-1 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: red;
+    position: relative;
+    animation: box1 2s infinite;
+}
+
+#box-2 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: blue;
+    position: relative;
+    animation: box2 3s infinite;
+}
+
+#box-3 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: green;
+    animation: box3 4s infinite;
+    position: relative;
+}
+// :hover #box-3{
+//     transform: translate(0px,-20px);
+// }
+// :hover #box-2{
+//     transform: translate(0px,20px);
+// }
+// :hover #box-1{
+//     transform: translate(0px,-20px);
+// }
+@keyframes box1 {
+    // 0% {
+    //     transform: translate(0, 0px);
+    // }
+
+    // 25% {
+    //     transform: translate(0, -50px);
+    // }
+
+    // 50% {
+    //     transform: translate(0, 50px);
+    // }
+
+    // 75% {
+    //     transform: translate(0, -50px);
+    // }
+    from {top: 0px;}
+    to {top: 20px;}
+}
+
+@keyframes box2 {
+    // 0% {
+    //     transform: translate(0, 0px);
+    // }
+
+    // 25% {
+    //     transform: translate(0, 50px);
+    // }
+
+    // 50% {
+    //     transform: translate(0, -50px);
+    // }
+
+    // 75% {
+    //     transform: translate(0, 50%px);
+    // }
+    from {top: 0px;}
+    to {top: 10px;}
+}
+
+@keyframes box3 {
+    // 0% {
+    //     transform: translate(0, 0px);
+    // }
+
+    // 25% {
+    //     transform: translate(0, -50px);
+    // }
+
+    // 50% {
+    //     transform: translate(0, 50px);
+    // }
+
+    // 75% {
+    //     transform: translate(0, -50px);
+    // }
+    from {top: 0px;}
+  to {top: 20px;}
+}

@@ -35,6 +35,7 @@ import { DonotComponent } from './container/pages/chart/donot/donot.component';
 import { LineComponent } from './container/pages/chart/line/line.component';
 import { TimeLineComponent } from './container/pages/chart/time-line/time-line.component';
 import { CardComponent } from './shared/commonComponents/card/card.component';
+import { LoaderComponent } from './shared/commonComponents/loader/loader.component';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -66,6 +67,7 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
     LineComponent,
     TimeLineComponent,
     CardComponent,
+    LoaderComponent,
     
   ],
   imports: [

@@ -1,4 +1,4 @@
-<div class="row m-2 justify-content-md-between">
+<!-- <div class="row m-2 justify-content-md-between">
     <ng-container *ngFor="let item of cardData">
         <div [class]="'col-sm-' + columnSize">
             <div class="card">
@@ -12,4 +12,19 @@
             </div>
         </div>
     </ng-container>
+</div> -->
+
+<div class="row justify-content-between align-item-center">
+    <ng-container *ngFor="let item of cardData">
+        <div [ngClass]="'col-sm-' + columnSize"  class="borderRadius py-3">
+            <mat-card class="example-card">
+                <mat-card-title>{{item[item.short_key]}}</mat-card-title>
+                <mat-card-content>
+                  <p class="text-truncate">{{item.name | translate}}</p>
+                </mat-card-content>
+                <img mat-card-image [src]="item.indicator_icons" class="card-img-top iconMAxWidth m-0" [alt]="item.name" >
+              </mat-card>
+        </div>
+    </ng-container>
 </div>
+

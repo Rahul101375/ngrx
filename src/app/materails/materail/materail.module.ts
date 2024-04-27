@@ -24,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonToggleModule} from '@angular/material/button-toggle'
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
 const data = [
 CommonModule,
   MatButtonModule,
@@ -46,7 +47,8 @@ CommonModule,
   MatDialogModule,
   MatMenuModule,
   MatButtonToggleModule,
-  MatTabsModule
+  MatTabsModule,
+  MatCardModule
 ]
 @NgModule({
    imports: [data],

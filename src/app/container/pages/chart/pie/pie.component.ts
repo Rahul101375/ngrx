@@ -59,7 +59,7 @@ export class PieComponent implements OnInit {
                 });
                 console.log("sum",sum)
                 let percentage = (value*100 / sum).toFixed(2)+"%";
-                return `${value} (${percentage})`;
+                return `${parseFloat(value)} (${percentage})`;
             },
             color: '#fff',
             font: {

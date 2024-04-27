@@ -211,15 +211,16 @@ export class DashboardComponent implements OnInit {
   ]
   public child:any =[]
   dashboardData: any = {};
-  currentTab :string[] = []
+  currentTab :string[] = [];
+  extra : string ='?from=&to=&is_month=false';
   constructor(private dashboardDataService:DashboardDataService) { }
 
   ngOnInit(): void {
+    this.getCountryData()
+    this.getCardData();
     this.getPieData();
     this.getGroupBarData();
-    this.getCardData();
     this.getIpsaData();
-    this.getCountryData()
   }
   toggleAction(event:any){
     this.toggleButtons = _.map(this.toggleButtons,(el)=>{
@@ -233,9 +234,10 @@ export class DashboardComponent implements OnInit {
     this.child = event.chields;
     if(event.index == 1 ){
       this.programSocialImpactCard();
+      this.programSocialImpactGroupBar();
     this.programSocialImpactPie();
     this.programSocialImpactTimeLine();
-    this.programSocialImpactGroupBar();
+    
     }
     else{
       this.programEnvironmentalDonut();
@@ -251,7 +253,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   getPieData(){
-    const pie = this.dashboardDataService.getPieList(dashboard.programView.IMPACT_SUMMARY.PIE_CHART)[1];
+    const pie = this.dashboardDataService.getPieList(dashboard.programView.IMPACT_SUMMARY.PIE_CHART + this.extra)[1];
     pie.subscribe({
       next : (response)=>{
         this.dashboardData.pie = response;
@@ -264,8 +266,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   getGroupBarData(){
-    let extra = '?from=&to=&is_month=false'
-    const groupBar = this.dashboardDataService.getGroupBardList(dashboard.programView.IMPACT_SUMMARY.GROUP_BAR_CHART+extra)[1];
+    const groupBar = this.dashboardDataService.getGroupBardList(dashboard.programView.IMPACT_SUMMARY.GROUP_BAR_CHART+this.extra)[1];
     groupBar.subscribe({
       next : (response)=>{
         this.dashboardData.groupBar = response;
@@ -278,7 +279,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   getCardData(){
-    const programViewCard = this.dashboardDataService.getProgramViewCardList(dashboard.programView.IMPACT_SUMMARY.CARD)[1];
+    const programViewCard = this.dashboardDataService.getProgramViewCardList(dashboard.programView.IMPACT_SUMMARY.CARD + this.extra)[1];
     programViewCard.subscribe({
       next : (response)=>{
         this.dashboardData.programViewCard = response;
@@ -291,7 +292,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   getIpsaData(){
-    const programViewIpsa = this.dashboardDataService.getProgramViewIpsaList(dashboard.programView.IMPACT_SUMMARY.IPSA)[1];
+    const programViewIpsa = this.dashboardDataService.getProgramViewIpsaList(dashboard.programView.IMPACT_SUMMARY.IPSA + this.extra)[1];
     programViewIpsa.subscribe({
       next : (response)=>{
         this.dashboardData.programViewIpsa = response;
@@ -317,7 +318,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   programSocialImpactCard(){
-    let programViewSocialCard = this.dashboardDataService.getProgramViewSocialCardList(dashboard.programView.SOCIAL_IMPACT.CARD_CHART)[1];
+    let programViewSocialCard = this.dashboardDataService.getProgramViewSocialCardList(dashboard.programView.SOCIAL_IMPACT.CARD_CHART + this.extra)[1];
     programViewSocialCard.subscribe({
       next : (response)=>{
         this.dashboardData.socialCard = response;
@@ -327,7 +328,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   programSocialImpactPie(){
-    let programViewSocialPie = this.dashboardDataService.getProgramViewSocialPieList(dashboard.programView.SOCIAL_IMPACT.PIE_CHART)[1];
+    let programViewSocialPie = this.dashboardDataService.getProgramViewSocialPieList(dashboard.programView.SOCIAL_IMPACT.PIE_CHART + this.extra)[1];
     programViewSocialPie.subscribe({
       next : (response)=>{
         this.dashboardData.socialPie = response;
@@ -337,7 +338,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   programSocialImpactTimeLine(){
-    let programViewSocialTimeLine = this.dashboardDataService.getProgramViewSocialTimeLineList(dashboard.programView.SOCIAL_IMPACT.TIME_LINE_CHART)[1];
+    let programViewSocialTimeLine = this.dashboardDataService.getProgramViewSocialTimeLineList(dashboard.programView.SOCIAL_IMPACT.TIME_LINE_CHART + this.extra)[1];
     programViewSocialTimeLine.subscribe({
       next : (response)=>{
         this.dashboardData.socialTimeLine = response;
@@ -347,7 +348,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   programSocialImpactGroupBar(){
-    let programViewSocialGroupBar = this.dashboardDataService.getProgramViewSocialGroupBarList(dashboard.programView.SOCIAL_IMPACT.GROUP_BAR_CHART)[1];
+    let programViewSocialGroupBar = this.dashboardDataService.getProgramViewSocialGroupBarList(dashboard.programView.SOCIAL_IMPACT.GROUP_BAR_CHART + this.extra)[1];
     programViewSocialGroupBar.subscribe({
       next : (response)=>{
         this.dashboardData.socialGroupBar = response;
@@ -357,7 +358,7 @@ export class DashboardComponent implements OnInit {
     })
   }
  programEnvironmentalDonut(){
-  let programEnvironmentalDonut = this.dashboardDataService.getProgramViewEnvironmentalDonutList(dashboard.programView.ENVIRONMENT_IMPACT.DONUT_CHART)[1];
+  let programEnvironmentalDonut = this.dashboardDataService.getProgramViewEnvironmentalDonutList(dashboard.programView.ENVIRONMENT_IMPACT.DONUT_CHART + this.extra)[1];
   programEnvironmentalDonut.subscribe({
     next : (response)=>{
       this.dashboardData.environmentalDonut = response;
@@ -367,7 +368,7 @@ export class DashboardComponent implements OnInit {
   })
  }
   programEnvironmentalPie(){
-    let programViewEnvironmentalPie = this.dashboardDataService.getProgramViewEnvironmentalPieList(dashboard.programView.ENVIRONMENT_IMPACT.PIE_CHART)[1];
+    let programViewEnvironmentalPie = this.dashboardDataService.getProgramViewEnvironmentalPieList(dashboard.programView.ENVIRONMENT_IMPACT.PIE_CHART + this.extra)[1];
     programViewEnvironmentalPie.subscribe({
       next : (response)=>{
         this.dashboardData.environmentalPie = response;
@@ -377,7 +378,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   programEnvironmentalTimeLine(){
-    let programViewEnvironmentalTimeLine = this.dashboardDataService.getProgramViewEnvironmentalTimeLineList(dashboard.programView.ENVIRONMENT_IMPACT.TIMELINE_CHART)[1];
+    let programViewEnvironmentalTimeLine = this.dashboardDataService.getProgramViewEnvironmentalTimeLineList(dashboard.programView.ENVIRONMENT_IMPACT.TIMELINE_CHART+ this.extra)[1];
     programViewEnvironmentalTimeLine.subscribe({
       next : (response)=>{
         this.dashboardData.environmentalTimeLine = response;
@@ -387,7 +388,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   programEnvironmentalGroupBar(){
-    let programViewEnvironmentalGroupBar = this.dashboardDataService.getProgramViewEnvironmentalGroupBarList(dashboard.programView.ENVIRONMENT_IMPACT.GROUP_BAR_CHART)[1];
+    let programViewEnvironmentalGroupBar = this.dashboardDataService.getProgramViewEnvironmentalGroupBarList(dashboard.programView.ENVIRONMENT_IMPACT.GROUP_BAR_CHART + this.extra)[1];
     programViewEnvironmentalGroupBar.subscribe({
       next : (response)=>{
         this.dashboardData.environmentalGroupBar = response;
