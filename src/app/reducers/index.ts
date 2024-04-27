@@ -1,6 +1,7 @@
 import { ActionReducerMap, createSelector } from "@ngrx/store";
 import * as fromUser from './user-reducer';
 import * as dashboard from './daashboard-reducer';
+import * as resource from './resource-reducer'
 export interface RootReducerState {
   users : fromUser.UserReducerState;
   category : fromUser.CategoryReducerState;
@@ -18,7 +19,8 @@ export interface RootReducerState {
   environmentalDDonut : dashboard.EnvironmentalDonutReducerState,
   environmentalTimeLine : dashboard.EnvironmentalTimeLineReducerState,
   environmentalGroupBar : dashboard.EnvironmentalGroupBarReducerState,
-  country : dashboard.CountryReducerState
+  country : dashboard.CountryReducerState,
+  resourceGlossary : resource.ResourceGlossaryState
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
@@ -38,7 +40,8 @@ export const rootReducer : ActionReducerMap<RootReducerState> = {
   environmentalDDonut : dashboard.EnvironmentalDonutReducer,
   environmentalTimeLine : dashboard.EnvironmentalTimeLineReducer,
   environmentalGroupBar: dashboard.EnvironmentalGroupBarReducer,
-  country : dashboard.CountryReducer
+  country : dashboard.CountryReducer,
+  resourceGlossary : resource.GlossaryReducer
 }
 
 export const getUserState = (state : RootReducerState) => state.users;
@@ -132,4 +135,13 @@ export const getProgramViewImpactCard = createSelector(getProgramViewImpactCardS
 
 export const getProgramViewImpactIpsaLoading = createSelector(getProgramViewImpactIpsaState,dashboard.getProgramViewImpactIpsaDataForLoading);
 export const getProgramViewImpactIpsaLoaded= createSelector(getProgramViewImpactIpsaState,dashboard.getProgramViewImpactIpsaDataForLoaded)
-export const getProgramViewImpactIpsa = createSelector(getProgramViewImpactIpsaState,dashboard.getProgramViewImpactIpsaDataForIpsa)
+export const getProgramViewImpactIpsa = createSelector(getProgramViewImpactIpsaState,dashboard.getProgramViewImpactIpsaDataForIpsa);
+
+
+
+// resource
+export const getResourceGlossaryState = (state : RootReducerState) => state.resourceGlossary;
+
+export const getResourceGlossaryLoadingForGlossaryLoading = createSelector(getResourceGlossaryState,resource.getResourceGlossaryLoading);
+export const getResourceGlossaryLoadedForGlossaryLoaded = createSelector(getResourceGlossaryState,resource.getResourceGlossaryLoaded);
+export const getResourceGlossaryDataForGlossaryData = createSelector(getResourceGlossaryState,resource.getResourceGlossaryData);

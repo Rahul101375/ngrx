@@ -82,3 +82,7 @@ export const dashboard = {
     }
    
 }
+
+export const resource = {
+    "USER_GLOSSARY" : "user/glossary"
+}

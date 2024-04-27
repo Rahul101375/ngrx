@@ -16,3 +16,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .defaultColor{
     color: #00625F;
 }
+.imageBanner{
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+.f-26{
+    font-size: 26px;
+}
+.cardBanner{
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+}
+.imageRoundShape{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

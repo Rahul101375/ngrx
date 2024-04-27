@@ -1,1 +1,30 @@
-<p>resource works!</p>
+
+<ng-template #resource let-value="data" let-keyName="key">
+   <ng-container *ngFor="let item of value let j=index">
+     <div *ngIf="item.sectionId == '9' && keyName == 'cms'" [ngStyle]="{'background-image': 'url(' + ( item.banner) + ')'}" class="row align-item-center imageBanner">
+          <div class="m-auto">
+             <h3 class="text-center f-26" [ngClass]="item.banner ? 'text-white' : 'text-black'">{{item?.title | translate}}</h3>
+             <p  class="text-center" [ngClass]="item.banner ? 'text-white' : 'text-black'" [innerHtml]="item.subTitle | safeHtml : -1"></p>
+          </div>
+     </div>
+     <div class="col-12" *ngIf="keyName == 'category' && j==0">
+        <h2>
+            Resource Center
+         </h2>
+     </div>
+     <div *ngIf="keyName == 'category' && j < 2" class="col-md-3 col-sm-6 cardBanner m-2 imageRoundShape" [ngStyle]="{'background-image': 'url(' + ( item.image) + ')'}">
+            <h3 [ngClass]="item.image ? 'text-white' : 'text-black'" class="textPosition">{{item?.name | translate}}</h3>
+            <div class="buttonPosition"><app-button [buttonText]="'View'"></app-button></div>
+    </div>
+
+     <div *ngIf="keyName == 'glossary' && j < 1" class="m-3 p-3">
+        <app-common-table [displayedColumns]="headers" [values]="value"></app-common-table>
+     </div>
+   </ng-container>
+</ng-template>
+
+    <ng-container *ngFor="let keyName of key; let i=index">
+        <div [ngClass]="keyName == 'category' ? 'row m-2' : ''">
+            <ng-container *ngTemplateOutlet="resource; context:{ data : resourceData[keyName][0].data, key:keyName}"></ng-container>
+        </div>
+    </ng-container>
