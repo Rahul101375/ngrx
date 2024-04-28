@@ -2,6 +2,7 @@ import { ActionReducerMap, createSelector } from "@ngrx/store";
 import * as fromUser from './user-reducer';
 import * as dashboard from './daashboard-reducer';
 import * as resource from './resource-reducer'
+import * as impactStory from './impact-story-reducer'
 export interface RootReducerState {
   users : fromUser.UserReducerState;
   category : fromUser.CategoryReducerState;
@@ -20,7 +21,8 @@ export interface RootReducerState {
   environmentalTimeLine : dashboard.EnvironmentalTimeLineReducerState,
   environmentalGroupBar : dashboard.EnvironmentalGroupBarReducerState,
   country : dashboard.CountryReducerState,
-  resourceGlossary : resource.ResourceGlossaryState
+  resourceGlossary : resource.ResourceGlossaryState,
+  // impactStory : impactStory.ImpactStoryReducerState
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
@@ -41,7 +43,8 @@ export const rootReducer : ActionReducerMap<RootReducerState> = {
   environmentalTimeLine : dashboard.EnvironmentalTimeLineReducer,
   environmentalGroupBar: dashboard.EnvironmentalGroupBarReducer,
   country : dashboard.CountryReducer,
-  resourceGlossary : resource.GlossaryReducer
+  resourceGlossary : resource.GlossaryReducer,
+  // impactStory : impactStory.ImpactStoryReducer
 }
 
 export const getUserState = (state : RootReducerState) => state.users;

@@ -1,1 +1,43 @@
-<p>impact-stories works!</p>
+<ng-template #impactStory let-value="data" let-keyName="key">
+    <ng-container *ngFor="let item of value let j=index">
+        <div *ngIf="item.sectionId == '12' && keyName == 'cms'"
+            [ngStyle]="{'background-image': 'url(' + ( item.banner) + ')'}" class="row align-item-center imageBanner">
+            <div class="m-auto">
+                <h3 class="text-center f-26" [ngClass]="item.banner ? 'text-white' : 'text-black'">{{item?.title |
+                    translate}}</h3>
+                <p class="text-center w-50 mx-auto" [ngClass]="item.banner ? 'text-white' : 'text-black'"
+                    [innerHtml]="item.subTitle | safeHtml : -1"></p>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="keyName == 'impactStory' && j==0">
+            <h2 class="m-3">
+                Impact Story
+            </h2>
+        </div>
+        <ng-container *ngIf="keyName == 'impactStory' && j < 6">
+            <div class="card col-md-3 m-2 p-0 defaultBackGroundColor imageBorder" *ngIf="keyName == 'impactStory'">
+                <img class="card-img-top impactStoryImageBorder" [src]="item.banner" [alt]="item.title">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{item.title | translate}}</h5>
+                    <p class="card-text" [innerHtml]="item.description | safeHtml : 400"></p>
+                </div>
+                <div class="text-center m-2">
+                    <small class="text-muted text-white">
+                        <app-button buttonText="Read More" buttonColor="#47d985"
+                            [routerLink]="['/impact-stories', {id:item.id}]"></app-button>
+                    </small>
+                </div>
+            </div>
+        </ng-container>
+            <div *ngIf="keyName == 'impactStory' && j == 6" class="col-md-12 text-center p-2 m-2">
+                <app-button buttonText="View All" routerLink="/impact-stories"></app-button>
+            </div>
+    </ng-container>
+</ng-template>
+
+<ng-container *ngFor="let keyName of key; let i=index">
+    <div [ngClass]="keyName === 'impactStory' ? 'row justify-content-center align-item-center' : ''">
+        <ng-container
+            *ngTemplateOutlet="impactStory; context:{ data : impactStoryData[keyName][0].data, key:keyName}"></ng-container>
+     </div>
+</ng-container>

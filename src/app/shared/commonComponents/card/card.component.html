@@ -18,11 +18,11 @@
     <ng-container *ngFor="let item of cardData">
         <div [ngClass]="'col-sm-' + columnSize"  class="borderRadius py-3">
             <mat-card class="example-card">
-                <mat-card-title>{{item[item.short_key]}}</mat-card-title>
+                <mat-card-title>{{item[item.short_key] ? item[item.short_key] : item.value}}</mat-card-title>
                 <mat-card-content>
-                  <p class="text-truncate">{{item.name | translate}}</p>
+                  <p class="text-truncate">{{item.name ? item.name : item.key | translate}}</p>
                 </mat-card-content>
-                <img mat-card-image [src]="item.indicator_icons" class="card-img-top iconMAxWidth m-0" [alt]="item.name" >
+                <img mat-card-image *ngIf="item?.indicator_icons" [src]="item.indicator_icons" class="card-img-top iconMAxWidth m-0" [alt]="item.name" >
               </mat-card>
         </div>
     </ng-container>

@@ -1,1 +1,21 @@
-<p>about-us works!</p>
+<ng-template #impactStory let-value="data" let-keyName="key">
+    <ng-container *ngFor="let item of value let j=index">
+        <div *ngIf="item.sectionId == '2' && keyName == 'cms'"
+            [ngStyle]="{'background-image': 'url(' + ( item.banner) + ')'}" class="row align-item-center imageBanner">
+            <div class="m-auto">
+                <h3 class="text-center f-26" [ngClass]="item.banner ? 'text-white' : 'text-black'">{{item?.title |
+                    translate}}</h3>
+            </div>
+        </div>
+        <div class="row justify-content-center m-2 p-2">
+            <div class="col-md-8" [innerHtml]="item.subTitle | safeHtml : -1"></div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-container *ngFor="let keyName of key; let i=index">
+    <div [ngClass]="keyName === 'impactStory' ? 'row justify-content-center align-item-center' : ''">
+        <ng-container
+            *ngTemplateOutlet="impactStory; context:{ data : aboutUsData[keyName][0].data, key:keyName}"></ng-container>
+     </div>
+</ng-container>

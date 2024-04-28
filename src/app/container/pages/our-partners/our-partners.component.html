@@ -1,1 +1,35 @@
-<p>our-partners works!</p>
+
+<ng-template #insideImage let-data="image">
+    <ng-container *ngFor="let item of data">
+        <div class="row justify-content-between m-3 p-3 mat-card">
+            <h2>{{item.title | translate}}</h2>
+            <div class="col-md-12 d-flex">
+                <div class="col-md-4"><img [src]="item.image" class="img-thumbnail mx-2" [alt]="item.title" style="height: 200px; width: 200px;"></div>
+                <div class="col-md-8 mt-4 text-wrap">{{item.description | translate}}</div>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<ng-template #impactStory let-value="data" let-keyName="key">
+    <ng-container *ngFor="let item of value let j=index">
+        <div *ngIf="item.sectionId == '4' && keyName == 'cms'"
+            [ngStyle]="{'background-image': 'url(' + ( item.banner) + ')'}" class="row align-item-center imageBanner">
+            <div class="m-auto">
+                <h3 class="text-center f-26" [ngClass]="item.banner ? 'text-white' : 'text-black'">{{item?.title |
+                    translate}}</h3>
+                <p class="text-center mx-auto w-50" [ngClass]="item.banner ? 'text-white' : 'text-black'"
+                    [innerHtml]="item.subTitle | safeHtml : -1"></p>
+            </div>
+        </div>
+        <div *ngIf="item.sectionId == '4' && keyName == 'cms' && item.data.length">
+            <ng-container *ngTemplateOutlet="insideImage ; context:{image : item.data}"></ng-container>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-container *ngFor="let keyName of key; let i=index">
+    <div [ngClass]="keyName === 'impactStory' ? 'row justify-content-center align-item-center' : ''">
+        <ng-container
+            *ngTemplateOutlet="impactStory; context:{ data : ourPartnerData[keyName][0].data, key:keyName}"></ng-container>
+     </div>
+</ng-container>
