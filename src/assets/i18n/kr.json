@@ -15,5 +15,8 @@
     "environmentalImpact" : "환경 적 영향",
     "energy" : "에너지",
     "water" : "물",
-    "chemical" : "화학적인"
+    "chemical" : "화학적인",
+    "social"  : "소셜",
+    "environmental" : "환경",
+    "building" : "건물"
 }

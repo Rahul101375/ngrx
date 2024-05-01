@@ -25,5 +25,8 @@
     "environmentalImpact" : "Impact sur l’environnement",
     "energy" : "Énergie",
     "water" : "Eau",
-    "chemical" : "Chimique"
+    "chemical" : "Chimique",
+    "building" : "Bâtiment",
+    "social" : "Social",
+    "environmental" : "Environnemental"
 }

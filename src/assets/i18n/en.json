@@ -38,5 +38,8 @@
     "environmentalImpact" : "Environmental Impact",
     "energy" : "Energy",
     "water" : "Water",
-    "chemical" : "Chemical"
+    "chemical" : "Chemical",
+    "building" : "Building",
+    "environmental" : "Environmental",
+    "social" : "Social"
 }

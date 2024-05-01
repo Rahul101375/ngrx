@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -8,9 +8,20 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ButtonComponent implements OnInit {
   @Input() buttonText : string = "Submit";
   @Input() buttonColor : string = "";
+  @Output() commonButtonEvent : EventEmitter<any> = new EventEmitter<any>()
   constructor() { }
 
   ngOnInit(): void {
+    console.log("button text",this.buttonText)
   }
-
+  buttonEvent(){
+    switch(this.buttonText){
+      case 'Building': 
+       return this.commonButtonEvent.emit({buttonText : 'Building'}) ;
+       case 'Environmental': 
+       return this.commonButtonEvent.emit({buttonText : 'Environmental'}) ;
+       case 'Social': 
+       return this.commonButtonEvent.emit({buttonText : 'Social'}) ;
+    }
+  }
 }

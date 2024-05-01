@@ -21,11 +21,28 @@
 </div>
 
 
-<ng-template #insideDashboard let-insideItem="insideData" let-imageKey="image">
-    <div class="row px-4 py-1">
-        <img *ngIf="insideItem[imageKey]" [src]="insideItem[imageKey]" [alt]="insideItem[imageKey]" width="40px" height="40px">
-        <h4 class="defaultColor font-weight-bold mt-2">{{insideItem?.name ? insideItem.name : insideItem?.heading ? insideItem?.heading :
-            insideItem?.question_label |translate}}</h4>
+<ng-template #insideDashboard let-insideItem="insideData" let-imageKey="image" let-isButton="button">
+    <div class="row px-4 py-1 justify-content-between align-item-center">
+        <div class="">
+           <div class="row">
+            <img *ngIf="insideItem[imageKey]" [src]="insideItem[imageKey]" [alt]="insideItem[imageKey]" width="40px" height="40px">
+            <h4 class="defaultColor font-weight-bold mt-2">{{insideItem?.name ? insideItem.name : insideItem?.heading ? insideItem?.heading :
+                insideItem?.question_label |translate}}</h4>
+            </div>
+           </div>
+        <div class="" *ngIf="isButton">
+            <span class="row" style="gap: 10px;">
+                <span>
+                    <app-button [buttonText]="social | translate" (commonButtonEvent)="handleProgramView($event)"></app-button>
+                </span>
+                <span>
+                    <app-button [buttonText]="environmental | translate" (commonButtonEvent)="handleProgramView($event)"></app-button>
+                </span>
+                <span>
+                    <app-button [buttonText]="building | translate" (commonButtonEvent)="handleProgramView($event)"></app-button>
+                </span>
+            </span>
+        </div>
     </div>
 </ng-template>
 
@@ -62,12 +79,12 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="type === 'programViewIpsa'">
-                <div class="row justify-content-md-between m-3" *ngIf="j==3" >
-                    <div class="col-md-3" *ngIf="type === 'programViewIpsa'" >
-                        <app-card [columnSize]="'12'" [cardData]="item[0].values" *ngIf="type === 'programViewIpsa' && !value?.headers?.length && j==3"></app-card>
+                <div class="row justify-content-md-between m-3" *ngIf="ipsaIndex === j" >
+                    <div class="col-md-3" *ngIf="type === 'programViewIpsa' && (ipsaIndex === j)" >
+                        <app-card [columnSize]="'12'" [cardData]="item[0].values" *ngIf="type === 'programViewIpsa' && !value?.headers?.length && ipsaIndex === j"></app-card>
                     </div>
-                    <div class="mat-card col-md-9" *ngIf="type === 'programViewIpsa' && j > 2" >
-                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : ''}"></ng-container>
+                    <div class="mat-card col-md-9" *ngIf="type === 'programViewIpsa' && ipsaIndex === j" >
+                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : '',button:true}"></ng-container>
                         <app-line [lineChartId]="'line_' + type + '_' + (i+j+1)" [lineData]="value.values"></app-line>
                     </div>
                 </div>

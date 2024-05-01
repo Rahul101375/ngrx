@@ -215,7 +215,11 @@ export class DashboardComponent implements OnInit {
   extra : string ='?from=&to=&is_month=false';
   currentSubTab:string = 'impactSummary'
   childTab : string = 'Worker welfare';
-  childTabEnvironment : string = 'Energy'
+  childTabEnvironment : string = 'Energy';
+  public social : string = "social"
+  public environmental : string = "environmental"
+  public building : string = "building";
+  public ipsaIndex : number = 3;
   constructor(private dashboardDataService:DashboardDataService) { }
 
   ngOnInit(): void {
@@ -423,5 +427,19 @@ export class DashboardComponent implements OnInit {
         this.currentTab = [... new Set(this.currentTab)]
       }
     })
+  }
+  handleProgramView(event:any){
+    switch(event.buttonText){
+      case 'Building': 
+       this.ipsaIndex = 5;
+       break;
+       case 'Environmental': 
+        this.ipsaIndex = 4;
+        break;
+       case 'Social': 
+        this.ipsaIndex = 3;
+        break;
+    }
+    console.log("this.ipsaIndex",this.ipsaIndex)
   }
 }
