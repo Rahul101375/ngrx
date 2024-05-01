@@ -213,6 +213,9 @@ export class DashboardComponent implements OnInit {
   dashboardData: any = {};
   currentTab :string[] = [];
   extra : string ='?from=&to=&is_month=false';
+  currentSubTab:string = 'impactSummary'
+  childTab : string = 'Worker welfare';
+  childTabEnvironment : string = 'Energy'
   constructor(private dashboardDataService:DashboardDataService) { }
 
   ngOnInit(): void {
@@ -230,9 +233,12 @@ export class DashboardComponent implements OnInit {
     console.log("eve",event)
   }
   tabMenuAction(event:any){
-    console.log("eve",event)
     this.child = event.chields;
-    if(event.index == 1 ){
+    if(event.index === 0){
+      this.currentSubTab = 'impactSummary';
+    }
+    else if(event.index == 1 ){
+    this.currentSubTab = 'socialImpact';
       this.programSocialImpactCard();
       this.programSocialImpactGroupBar();
     this.programSocialImpactPie();
@@ -240,6 +246,7 @@ export class DashboardComponent implements OnInit {
     
     }
     else{
+     this.currentSubTab = 'environmentImpact';
       this.programEnvironmentalDonut();
     this.programEnvironmentalPie();
     this.programEnvironmentalTimeLine();
@@ -247,6 +254,26 @@ export class DashboardComponent implements OnInit {
     }
   }
   subToggleAction(event:any){
+    console.log("child",event)
+    if(event.label.trim() === 'womenEmpowerment'){
+      this.childTab = "Women empowerment"
+    }
+    if(event.label.trim() === 'workerWelfare'){
+      this.childTab = "Worker welfare"
+    }
+    if(event.label.trim() === 'ohs'){
+      this.childTab = "OHS"
+    }
+    if(event.label.trim() === 'energy'){
+      this.childTabEnvironment = "Energy"
+    }
+    if(event.label.trim() === 'water'){
+      this.childTabEnvironment = "Water"
+    }
+    if(event.label.trim() === 'chemical'){
+      this.childTabEnvironment = "Chemical"
+    }
+    console.log("childTab",this.childTab,this.childTabEnvironment);
     this.child = _.map(this.child,(el)=>{
       el.active = el.label === event.label
       return el;

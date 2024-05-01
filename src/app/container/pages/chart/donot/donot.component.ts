@@ -64,7 +64,7 @@ ngAfterViewInit(){
               });
               console.log("sum",sum)
               let percentage = (value*100 / sum).toFixed(2)+"%";
-              return `${parseFloat(value)} (${percentage})`;
+              return `${(parseFloat(value)).toLocaleString()} (${percentage})`;
           },
           color: '#fff',
           font: {

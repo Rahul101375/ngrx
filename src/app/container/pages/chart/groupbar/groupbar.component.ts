@@ -11,7 +11,8 @@ Chart.register(...registerables)
 export class GroupBarComponent implements OnInit {
   @Input() groupBarChartId: string = ""
   @Input() groupBarData: any = []
-  @Input() type:string = ""
+  @Input() type:string = "";
+  public color : string[] = ['#00625F' ,'#08b8b2','#5b9795']
   constructor() { }
 
   ngOnInit(): void {
@@ -33,9 +34,10 @@ export class GroupBarComponent implements OnInit {
         scales: {
           x: {
             stacked: true,
+            
           },
           y: {
-            stacked: true
+            stacked: true,
           }
         },
         plugins: {
@@ -45,16 +47,39 @@ export class GroupBarComponent implements OnInit {
             labels: {
               usePointStyle: true,
               boxWidth: 6
-            }
+            },
+            // onClick: (e:any) => {
+            //   console.log("el",e)
+            //   const element = myChart.getElementAtEvent(e);
+            //   console.log("el",e)
+            //   if (element) {
+            //     const index = element[0]._index;
+            //     myChart.data.datasets[0].backgroundColor[index] = this.color[0];
+            //     // myChart.update();
+            //   }
+            // }
           },
           datalabels: {
             color: "white",
-            // formatter: (value:any,context:any)=> {
-            //   console.log("val",value);
-            //   console.log("content",context)
-            //   return context.dataset.financial_year;
-            // }
-          }
+            rotation : -90,
+            textAlign:'center',
+            formatter: (value:any,context:any)=> {
+              return (parseFloat(context.dataset.data)).toLocaleString();
+            }
+          },
+          // tooltip: {
+          //   callbacks: {
+          //     label: (context:any) => {
+          //       console.log("tooltip",context)
+          //       let label = context.dataset.label || '';
+          //       if (label) {
+          //         label += ': ';
+          //       }
+          //       label += context.parsed.y;
+          //       return label;
+          //     }
+          //   }
+          // }
         },
       },
       data: {
@@ -63,7 +88,6 @@ export class GroupBarComponent implements OnInit {
       }
     }
     );
-
   }
   setLabel(data: any) {
     return _.map(data, (el) => {
@@ -74,15 +98,16 @@ export class GroupBarComponent implements OnInit {
     console.log(this.type,this.groupBarData)
     let obj: any = {};
     _.forEach(data, (el) => {
-      obj = _.map(el.values, (e, index) => {
+      console.log("obj-1",el)
+      obj = _.map(el.values, (e, index:number) => {
           e.label = e.financial_year,
           e.data = e.total_count,
-          e.backgroundColor = 'rgb(7 63 45)';
+          e.backgroundColor = this.color[index];
           e.stack = 'stack' + (index + 1)
         return e;
       })
     })
-    
+    console.log("map",obj)
     return obj
   }
 }

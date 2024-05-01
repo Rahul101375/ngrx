@@ -1,94 +1,97 @@
 #box-1 {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: red;
+    background: linear-gradient(45deg, #ccacd7, transparent);
     position: relative;
-    animation: box1 2s infinite;
+    animation: box1 5s infinite linear;
 }
 
 #box-2 {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: blue;
+    background: linear-gradient(45deg, #ecb203, transparent);
     position: relative;
-    animation: box2 3s infinite;
+    animation: box2 4s infinite linear;
 }
 
 #box-3 {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: green;
-    animation: box3 4s infinite;
+    background: linear-gradient(45deg, #6bd784, transparent);
+    animation: box3 6s infinite linear;
     position: relative;
 }
-// :hover #box-3{
-//     transform: translate(0px,-20px);
-// }
-// :hover #box-2{
-//     transform: translate(0px,20px);
-// }
-// :hover #box-1{
-//     transform: translate(0px,-20px);
-// }
+#box-4 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #bc765d, transparent);
+    animation: box4 8s infinite linear;
+    position: relative;
+}
+#box-5 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #1c92a4, transparent);
+    animation: box5 10s infinite linear;
+    position: relative;
+}
 @keyframes box1 {
-    // 0% {
-    //     transform: translate(0, 0px);
-    // }
-
-    // 25% {
-    //     transform: translate(0, -50px);
-    // }
-
-    // 50% {
-    //     transform: translate(0, 50px);
-    // }
-
-    // 75% {
-    //     transform: translate(0, -50px);
-    // }
-    from {top: 0px;}
-    to {top: 20px;}
+    // from {top: 0px;}
+    // to {top: 20px;}
+    0%,50%{
+        transform: translateY(10px);
+    }
+    25%,75%{
+        transform: translateY(-10px);
+    }
 }
 
 @keyframes box2 {
-    // 0% {
-    //     transform: translate(0, 0px);
-    // }
-
-    // 25% {
-    //     transform: translate(0, 50px);
-    // }
-
-    // 50% {
-    //     transform: translate(0, -50px);
-    // }
-
-    // 75% {
-    //     transform: translate(0, 50%px);
-    // }
-    from {top: 0px;}
-    to {top: 10px;}
+    // from {top: 0px;}
+    // to {top: 10px;}
+    0%,50%{
+        transform: translateY(10px);
+    }
+    25%,75%{
+        transform: translateY(-10px);
+    }
 }
 
 @keyframes box3 {
-    // 0% {
-    //     transform: translate(0, 0px);
-    // }
-
-    // 25% {
-    //     transform: translate(0, -50px);
-    // }
-
-    // 50% {
-    //     transform: translate(0, 50px);
-    // }
-
-    // 75% {
-    //     transform: translate(0, -50px);
-    // }
-    from {top: 0px;}
-  to {top: 20px;}
+   
+//     from {top: 0px;}
+//   to {top: 20px;}
+0%,50%{
+    transform: translateY(10px);
+}
+25%,75%{
+    transform: translateY(-10px);
+}
+}
+@keyframes box4 {
+   
+//     from {top: 0px;}
+//   to {top: 20px;}
+0%,50%{
+    transform: translateY(10px);
+}
+25%,75%{
+    transform: translateY(-10px);
+}
+}
+@keyframes box5 {
+   
+//     from {top: 0px;}
+//   to {top: 20px;}
+0%,50%{
+    transform: translateY(10px);
+}
+25%,75%{
+    transform: translateY(-10px);
+}
 }

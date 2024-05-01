@@ -22,50 +22,174 @@
 
 
 <ng-template #insideDashboard let-insideItem="insideData" let-imageKey="image">
-  <div class="row">
-    <img *ngIf="insideItem[imageKey]" [src]="insideItem[imageKey]" [alt]="insideItem[imageKey]">
-    <h4 class="defaultColor">{{insideItem?.name ? insideItem.name : insideItem?.heading |translate}}</h4>
-  </div>
+    <div class="row">
+        <img *ngIf="insideItem[imageKey]" [src]="insideItem[imageKey]" [alt]="insideItem[imageKey]">
+        <h4 class="defaultColor">{{insideItem?.name ? insideItem.name : insideItem?.heading ? insideItem?.heading :
+            insideItem?.question_label |translate}}</h4>
+    </div>
 </ng-template>
 <ng-template #dashboardTemplate let-item="data" let-i="index" let-type="key">
     <ng-container *ngFor="let value of item; let j=index">
-        <div class="col-md-12 mat-card" *ngIf="type === 'country' && j < 1">
+        <div class="col-md-12 mat-card" *ngIf="type === 'country' && j < 1 && currentSubTab === 'impactSummary' ">
             World Map
-            <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'country_icons'}"></ng-container>
+            <ng-container
+                *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'country_icons'}"></ng-container>
         </div>
-        <div class="col-md-12" *ngIf="['programViewCard','socialCard'].includes(type) && j < 1">
-            <app-card [columnSize]="'4'" [cardData]="item"></app-card>
+        <div class="col-md-12" *ngIf="['programViewCard'].includes(type) && j < 1 && currentSubTab === 'impactSummary'">
+            <app-card [columnSize]="type === 'socialCard' ? '6' : '4'" [cardData]="item"></app-card>
         </div>
-        <div class="col-md-12 mat-card" *ngIf="['pie','environmentalPie'].includes(type)">
+        <div class="col-md-12" *ngIf="['pie','groupBar','programViewIpsa'].includes(type) && currentSubTab === 'impactSummary'">
+            <ng-container *ngIf="type === 'pie'">
+                <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                <app-pie [pieChartId]="'pie_' + type + (i+1+j)" [pieData]="value.short_key"></app-pie>
+            </ng-container>
+            <ng-container *ngIf="type === 'groupBar'">
+                <ng-container  *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                <app-groupBar [groupBarChartId]="'groupBar_' + type + (i+1+j)" [groupBarData]="value.details"></app-groupBar>
+            </ng-container>
+            <ng-container *ngIf="type === 'programViewIpsa' && value?.headers?.length">
+                <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : ''}"></ng-container>
+                <app-common-table [displayedColumns]="value.headers" [values]="value.values" *ngIf="value?.headers?.length"></app-common-table>
+            </ng-container>
+            <ng-container *ngIf="type === 'programViewIpsa'">
+                <app-card [columnSize]="'4'" [cardData]="value.values" *ngIf="type === 'programViewIpsa' && !value?.headers?.length && j<1"></app-card>
+            </ng-container>
+        </div>
+
+        <div [ngClass]="childTab === 'OHS' ? 'col-md-12' : 'col-md-6'" *ngIf="['socialCard','socialPie','socialTimeLine','socialGroupBar'].includes(type)  && currentSubTab === 'socialImpact'" style="border: 2px solid blue;">
+            <ng-container *ngIf="type === 'socialCard' && j < 1">
+                <ng-container *ngIf="childTab !== 'OHS'">
+                    <app-card [columnSize]="type === 'socialCard' ? '12' : '4'" [cardData]="item"></app-card>
+                </ng-container>
+            </ng-container>
+            
+            <ng-container *ngIf="type === 'socialTimeLine'">
+                <ng-container *ngIf="childTab === value.theme_name">
+                    <div class="mat-card my-3">
+                        <ng-container  *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                        <app-groupBar [groupBarChartId]="'socialTimeLine'+ type + (i+1+j)" [groupBarData]="value.short_key"></app-groupBar>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="type === 'socialPie'">
+                <ng-container *ngIf="value.theme_name == childTab">
+                    <div class=" mat-card my-3">
+                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                     <app-pie [pieChartId]="'pie_' + type + (i+1+j)" [pieData]="value.short_key"></app-pie>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="type === 'socialGroupBar'">
+                <ng-container *ngIf="childTab === value.theme_name">
+                    <div class="mat-card my-3">
+                        <ng-container  *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                        <app-groupBar [groupBarChartId]="'groupBar_' + type + (i+1+j)" [groupBarData]="value.details"></app-groupBar>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <div class="col-md-12 mat-card m-2" *ngIf="['environmentalPie','environmentalTimeLine','environmentalGroupBar','environmentalDonut'].includes(type) && currentSubTab === 'environmentImpact'">
+            <ng-container *ngIf="type === 'environmentalPie'">
+                <ng-container *ngIf="childTabEnvironment === value.theme_name">
+                    <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                   <app-pie [pieChartId]="'pie_' + type + (i+1+j)" [pieData]="value.short_key"></app-pie>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="type === 'environmentalTimeLine'">
+                <ng-container *ngIf="(childTabEnvironment === value.theme_name) && type === 'environmentalTimeLine'">
+                    <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                    <app-groupBar [groupBarChartId]="'environmentalTimeLine' + value.theme_name + (i+1+j)" [groupBarData]="value.short_key" [type]="'timeline'"></app-groupBar> 
+                </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="type === 'environmentalGroupBar'">
+                <ng-container *ngIf="value.theme_name === childTabEnvironment && childTabEnvironment !== 'Water'">
+                    <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                    <app-groupBar [groupBarChartId]="'environmentalGroupBar_' + value.theme_name + (i+1+j)"  [groupBarData]="value.details"></app-groupBar>  
+                </ng-container>
+
+                <ng-container *ngIf="value.theme_name === childTabEnvironment && !(['Energy','Chemical'].includes(childTabEnvironment))">
+                    <ng-container *ngFor="let insideItem of value.details let k=index">
+                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : insideItem,image : 'indicator_icons'}"></ng-container>
+                        <app-time-line [chartId]="'environmentalGroupBar_water_' + insideItem.question_label  + (i+j+k+1)"  [chartData]="insideItem.values" [chartLabel]="insideItem.question_label"></app-time-line>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="type === 'environmentalDonut'">
+                <ng-container  *ngIf="childTabEnvironment === value.theme_name">
+                    <ng-container  *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                    <app-donut [donutChartId]="'environmentalDonut_' + value.theme_name + (i+1+j)" [donutData]="value.short_key"></app-donut>
+                </ng-container>
+                
+            </ng-container>
+        </div>
+        
+        <div class="col-md-12 mat-card" *ngIf="['pie','environmentalPie'].includes(type) && false">
             <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
-            <app-pie [pieChartId]="'pie_' + (i+1+j)" [pieData]="value.short_key"></app-pie> 
+            <app-pie [pieChartId]="'pie_' + (i+1+j)" [pieData]="value.short_key"></app-pie>
         </div>
-        <div class="col-md-12 mat-card" *ngIf="['socialTimeLine','environmentalTimeLine'].includes(type)">
+        <div class="col-md-12 mat-card" *ngIf="['socialTimeLine','environmentalTimeLine'].includes(type) && false">
+            <ng-container *ngIf="type === 'socialTimeLine'">
+                <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                <app-groupBar [groupBarChartId]="'socialTimeLine'+ (i+1+j)" [groupBarData]="value.short_key" [type]="'timeline'"></app-groupBar>
+            </ng-container>
+            <ng-container *ngIf="type === 'environmentalTimeLine'">
+                <ng-container *ngIf="value.theme_name === 'Energy'">
+                    <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                    <app-groupBar [groupBarChartId]="'environmentalTimeLine' + '_Energy' + (i+1+j)" [groupBarData]="value.short_key" [type]="'timeline'"></app-groupBar>
+                </ng-container>
+                <ng-container *ngIf="value.theme_name === 'Water'">
+                    <ng-container  *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                    <app-groupBar [groupBarChartId]="'environmentalTimeLine' + '_Water' + (i+1+j)" [groupBarData]="value.short_key" [type]="'timeline'"></app-groupBar>
+                </ng-container>
+            </ng-container>
+            <!-- <ng-container [ngSwitch]="type">
+                <ng-container *ngSwitchCase="type === 'environmentalTimeLine'">
+                    <div class="">
+                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                        <pre>
+                            {{value.short_key |slice(0,8) | json}}
+                        </pre>
+                        <app-groupBar [groupBarChartId]="'environmentalTimeLine' + (i+1+j)" [groupBarData]="value.short_key |slice(0,8)" [type]="'timeline'"></app-groupBar>
+                    </div>
+                    <div class="">
+                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                        <pre>
+                            {{value.short_key.slice(8,short_key.length) | json}}
+                        </pre>
+                        <app-groupBar [groupBarChartId]="'environmentalTimeLine' + (i+1+j)" [groupBarData]="value.short_key |slice(8,short_key.length)" [type]="'timeline'"></app-groupBar>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="type === 'socialTimeLine'">
+                    <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
+                    <app-groupBar [groupBarChartId]="'socialTimeLine' + (i+1+j)" [groupBarData]="value.short_key" [type]="'timeline'"></app-groupBar>
+                </ng-container>
+            </ng-container> -->
+        </div>
+        <div class="col-md-12 mat-card" *ngIf="['groupBar','socialGroupBar','environmentalGroupBar1'].includes(type) && false">
             <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
-            <app-groupBar [groupBarChartId]="'timeline' + (i+1+j)" [groupBarData]="value.short_key" [type]="'timeline'"></app-groupBar>
+            <app-groupBar [groupBarChartId]="'groupBar_' + (i+1+j)" [groupBarData]="value.details" [type]="'groupBar'"></app-groupBar>
         </div>
-        <div class="col-md-12 mat-card" *ngIf="['groupBar','socialGroupBar','environmentalGroupBar'].includes(type)">
-            <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
-            <app-groupBar [groupBarChartId]="'groupBar_' + (i+1+j)" [groupBarData]="value.details" [type]="'groupBar'"></app-groupBar> 
-        </div>
-        <div class="col-md-12 mat-card" *ngIf="['donut','socialDonut','environmentalDonut','socialPie'].includes(type)">
-            <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
-            <app-donut [donutChartId]="'donut_' + (i+1+j)" [donutData]="value.short_key"></app-donut>
-        </div>
-        <div class="col-md-12 mat-card" *ngIf="value?.headers?.length">
+        
+        <div class="col-md-12 mat-card" *ngIf="value?.headers?.length && false">
             <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : ''}"></ng-container>
             <app-common-table [displayedColumns]="value.headers" [values]="value.values" *ngIf="value?.headers?.length"></app-common-table>
         </div>
-        <app-card [columnSize]="'4'" [cardData]="value.values" *ngIf="type === 'programViewIpsa' && !value?.headers?.length && j<1"></app-card>
+        <app-card [columnSize]="'4'" [cardData]="value.values"
+            *ngIf="type === 'programViewIpsa' && !value?.headers?.length && j<1 && false"></app-card>
     </ng-container>
 </ng-template>
 
-<div class="row justify-content-between align-item-center">
+<!--  -->
+<div  [ngClass]="currentSubTab === 'socialImpact' ? '':'row justify-content-between align-item-center'">
     <ng-container *ngFor="let tab of currentTab; let i=index">
-        <div class="col-md-6">
-           <ng-container *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
-       </div>
-   </ng-container>
+        <div [ngClass]="(currentSubTab === 'socialImpact') ? (childTab === 'OHS') ? '' : 'd-flex':(currentSubTab === 'environmentImpact') ? 'col-md-12' : 'col-md-6'">
+            <ng-container
+                *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
+        </div>
+    </ng-container>
 </div>
 
-
+<!-- && (tab === 'socialPie' || tab === 'socialGroupBar' || tab === 'socialTimeLine') -->

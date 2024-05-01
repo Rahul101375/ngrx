@@ -1,16 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Chart, ChartTypeRegistry, registerables } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import * as _ from "lodash"
 
 Chart.register(...registerables)
-
-type ChartData<T extends keyof ChartTypeRegistry, D extends any[], L extends any> = {
-  labels: L;
-  datasets: Array<{
-    label: string;
-    data: D;
-  }>;
-};
 
 @Component({
   selector: 'app-time-line',
@@ -18,52 +10,107 @@ type ChartData<T extends keyof ChartTypeRegistry, D extends any[], L extends any
   styleUrls: ['./time-line.component.scss']
 })
 export class TimeLineComponent implements OnInit {
-  @Input() groupBarChartId : string = ""
-  @Input() groupBarData : any = [];
+  @Input() chartId : string = ""
+  @Input() chartData : any = [];
+  @Input() chartLabel :string = "";
+  public color : string[] = ['#00625F' ,'#08b8b2','#5b9795']
   constructor() { }
 
   ngOnInit(): void {
   }
+  ngAfterViewInit():void{
+    this.time()
+  }
 
-  // time() {
-  //   const ctx:any = document.getElementById('myChart');
-  //   const myChart = new Chart(ctx, {
-  //     type: "timeline",
-  //     data: {
-  //       labels: ['2019-01-01', '2019-02-01', '2019-03-01', '2019-04-01', '2019-05-01', '2019-06-01'],
-  //       datasets: [
-  //         {
-  //           label: 'Group 1',
-  //           data: [
-  //             { x: '2019-01-01', y: '2019-01-10', label: 'Event 1' },
-  //             { x: '2019-02-01', y: '2019-02-10', label: 'Event 2' },
-  //             { x: '2019-03-01', y: '2019-03-10', label: 'Event 3' }
-  //           ],
-  //           backgroundColor: 'red'
-  //         },
-  //         {
-  //           label: 'Group 2',
-  //           data: [
-  //             { x: '2019-04-01', y: '2019-04-10', label: 'Event 4' },
-  //             { x: '2019-05-01', y: '2019-05-10', label: 'Event 5' },
-  //             { x: '2019-06-01', y: '2019-06-10', label: 'Event 6' }
-  //           ],
-  //           backgroundColor: 'blue'
-  //         }
-  //       ]
-  //     },
-  //     options: {
-  //       scales: {
-  //         x: {
-  //           type: 'time'
-  //         },
-  //         y: {
-  //           type: 'linear'
-  //         }
-  //       }
-  //     }
-  //   });
-
-  //   // myChart.render();
-  // }
+  time() {
+    const ctx:any = document.getElementById(this.chartId);
+     new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [this.chartLabel],
+        // datasets: [
+        //   {
+        //     label: 'Group 1',
+        //     data: [2,4,6],
+        //     backgroundColor: 'red'
+        //   },
+        //   {
+        //     label: 'Group 2',
+        //     data: [10,20,30],
+        //     backgroundColor: 'blue'
+        //   }
+        // ]
+        // datasets : _.map(this.chartData, (el,index:number)=>{
+        //    if(el.financial_year === '2021'){
+        //     el.label = '2021';
+        //     el.data.push(el.total_count);
+        //     el.backgroundColor = this.color[index];
+        //     el.stack = 'stack' + (index+1);
+        //    }
+        //    if(el.financial_year === '2022'){
+        //     el.label = '2022';
+        //     el.data.push(el.total_count);
+        //     el.backgroundColor = this.color[index];
+        //     el.stack = 'stack' + (index+1);
+        //    }
+        //    if(el.financial_year === '2023'){
+        //     el.label = '2023';
+        //     el.data.push(el.total_count);
+        //     el.backgroundColor = this.color[index];
+        //     el.stack = 'stack' + (index+1);
+        //    }if(el.financial_year === '2024'){
+        //     el.label = '2024';
+        //     el.data.push(el.total_count);
+        //     el.backgroundColor = this.color[index];
+        //     el.stack = 'stack' + (index+1);
+        //    }
+        //    return el;
+        // })
+        datasets : this.setData(this.chartData)
+      },
+      options: {
+        indexAxis: 'x',
+        scales: {
+          x: {
+            stacked: true,
+            
+          },
+          y: {
+            stacked: true,
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+              usePointStyle: true,
+              boxWidth: 6
+            },
+          },
+          datalabels: {
+            color: "white",
+            rotation : -90,
+            textAlign:'center',
+            formatter: (value:any,context:any)=> {
+              return (parseFloat(context.dataset.data)).toLocaleString();
+            }
+          },
+        },
+      },
+    });
+  }
+  setData(data:any){
+   return _.map(data ,(el,index:number)=>{
+    el.data = el.total_count;
+    el.label = el.financial_year,
+    el.stack = 'stack' + (index+1);
+    el.backgroundColor = this.color[index]
+    delete el.total_count,
+    delete el.financial_year
+    console.log("timeline chart data",data)
+    return el
+  })
+  
+  }
 }
