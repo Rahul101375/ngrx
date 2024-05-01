@@ -44,7 +44,7 @@
 
         <ng-container *ngIf="['pie','groupBar','programViewIpsa'].includes(type) && currentSubTab === 'impactSummary'">
             <ng-container *ngIf="type === 'pie'">
-                <div class="col-md-12 mat-card">
+                <div class="mat-card">
                     <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : 'indicator_icons'}"></ng-container>
                     <app-pie [pieChartId]="'pie_' + type + (i+1+j)" [pieData]="value.short_key"></app-pie>
                 </div>
@@ -55,19 +55,26 @@
                     <app-groupBar [groupBarChartId]="'groupBar_' + type + (i+1+j)" [groupBarData]="value.details"></app-groupBar>
                 </div>
             </ng-container>
-            <ng-container *ngIf="type === 'programViewIpsa' && value?.headers?.length">
-                <div class="col-md-12">
+            <ng-container *ngIf="type === 'programViewIpsa'">
+                <div class="col-md-6" *ngIf="value?.headers?.length">
                     <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : ''}"></ng-container>
                     <app-common-table [displayedColumns]="value.headers" [values]="value.values" *ngIf="value?.headers?.length"></app-common-table>
                 </div>
             </ng-container>
             <ng-container *ngIf="type === 'programViewIpsa'">
-                <app-card [columnSize]="'4'" [cardData]="value.values" *ngIf="type === 'programViewIpsa' && !value?.headers?.length && j<1"></app-card>
+                <div class="row justify-content-md-between m-3" *ngIf="j==3" >
+                    <div class="col-md-3" *ngIf="type === 'programViewIpsa'" >
+                        <app-card [columnSize]="'12'" [cardData]="item[0].values" *ngIf="type === 'programViewIpsa' && !value?.headers?.length && j==3"></app-card>
+                    </div>
+                    <div class="mat-card col-md-9" *ngIf="type === 'programViewIpsa' && j > 2" >
+                        <ng-container *ngTemplateOutlet="insideDashboard; context:{insideData : value,image : ''}"></ng-container>
+                        <app-line [lineChartId]="'line_' + type + '_' + (i+j+1)" [lineData]="value.values"></app-line>
+                    </div>
+                </div>
             </ng-container>
         </ng-container>
 
         <!-- social Impact start -->
-        <!-- [ngClass]="childTab === 'OHS' ? 'col-md-12' : 'col-md-6'" -->
         <ng-container  *ngIf="['socialCard','socialPie','socialTimeLine','socialGroupBar'].includes(type)  && currentSubTab === 'socialImpact'" style="border: 2px solid blue;">
             <ng-container *ngIf="type === 'socialCard' && j < 1">
                 <ng-container *ngIf="childTab !== 'OHS'">
@@ -156,7 +163,7 @@
 <div  [ngClass]="currentSubTab === 'socialImpact' ? 'row m-2':'row justify-content-between align-item-center'">
     <ng-container *ngFor="let tab of currentTab; let i=index">
             <ng-container *ngIf="currentSubTab === 'impactSummary'">
-                <div class="col-md-6">
+                <div [ngClass]="tab === 'programViewIpsa' ? 'col-md-12' : 'col-md-6'">
                     <ng-container *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
                 </div>
             </ng-container>
