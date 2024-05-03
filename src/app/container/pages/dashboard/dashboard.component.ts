@@ -223,13 +223,12 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardDataService:DashboardDataService) { }
 
   ngOnInit(): void {
-    this.getCountryData()
-    this.getCardData();
-    this.getPieData();
-    this.getGroupBarData();
-    this.getIpsaData();
+   this.init()
   }
   toggleAction(event:any){
+    console.log("parent",event);
+    // this.currentSubTab = "impactSummary";
+    // this.toggleButtons = this.toggleButtons
     this.toggleButtons = _.map(this.toggleButtons,(el)=>{
       el.active = el.value === event.value;
       return el;
@@ -442,4 +441,19 @@ export class DashboardComponent implements OnInit {
     }
     console.log("this.ipsaIndex",this.ipsaIndex)
   }
+  dateFilter(event:any){
+    console.log("date",event)
+    const {from,to,is_month} = event
+    this.extra = `?'from'=${from}&'to'=${to}&'is_month'=${is_month}`
+    this.init()
+
+  }
+  init(){
+    this.getCountryData()
+    this.getCardData();
+    this.getPieData();
+    this.getGroupBarData();
+    this.getIpsaData();
+  }
+  filter(event:any){}
 }

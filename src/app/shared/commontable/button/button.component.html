@@ -1,1 +1,5 @@
-<button mat-stroked-button [ngClass]="buttonColor ? 'setDynamic' : 'buttonHover'" (click)="buttonEvent()">{{buttonText}}</button>
+<button mat-stroked-button [ngClass]="buttonColor ? 'setDynamic' : 'buttonHover'" (click)="buttonEvent()">
+   <span *ngIf="buttonWithImage">
+     <img [src]="buttonWithImage" [alt]="buttonText" class="buttonImageIcon">
+   </span> {{buttonText}}
+</button>

@@ -9,3 +9,36 @@
     background: linear-gradient(331deg, blue, transparent);
     border-bottom: none;
 }
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  
+  .example-month-picker .mat-calendar-arrow {
+    display: none;
+  }
+  :host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .dialog-header {
+    display: flex;
+    flex-direction: row;
+    margin: -10px -10px 10px;
+  
+    & > h1 {
+        margin: auto 0;
+    }
+  
+    & > .mat-icon-button {
+        margin-left: auto;
+        margin-bottom: auto;
+    }
+  }
+  
+  .mat-dialog-content {
+    width: 100%;
+    display: flex;
+    max-height: unset;
+  }

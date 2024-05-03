@@ -1,5 +1,23 @@
-<div class="row m-2 align-item-center">
-    <app-toggle-button [toggle]="toggleButtons" (toggleClick)="toggleAction($event)"></app-toggle-button>
+<div class="row align-item-center justify-content-between mx-0">
+    <div class="col-md-4 m-2">
+        <app-toggle-button [toggle]="toggleButtons" (toggleClick)="toggleAction($event)"></app-toggle-button>
+    </div>
+    <div class="col-md-4 m-2">
+        <div class="col-md-12 row">
+            <ng-container *ngFor="let country of dashboardData['country'][0].data">
+                <div class="m-1">
+                    <app-button [buttonText]="country.name | translate" (commonButtonEvent)="handleProgramView($event)" [buttonWithImage]="country.country_icons"></app-button>
+                </div>
+            </ng-container>
+            <div class="m-1">
+                <app-menu  [matMenuType]="'text'" [buttonLabel]="'filter'" (matMenuEvent)="filter($event)"> </app-menu>
+            </div>
+            <div class="m-1">
+                <app-menu  [matMenuType]="'text'" [buttonLabel]="'Date Filter'" (matMenuEvent)="dateFilter($event)"> </app-menu>
+            </div>
+           
+        </div>
+    </div>
 </div>
 
 <div class="row m-2">
@@ -10,16 +28,6 @@
     <app-toggle-button [toggle]="child" (subToggleClick)="subToggleAction($event)"
         [type]="'subType'"></app-toggle-button>
 </div>
-
-<div class="row justify-content-md-between m-3 md-3" *ngIf="false">
-    <ng-container *ngFor="let tab of currentTab; let i=index">
-        <div class="col-md-6" [ngClass]=" tab === 'programViewCard' ? '' : 'mat-card my-3' ">
-            <ng-container
-                *ngTemplateOutlet="dashboardTemplate; context:{data : dashboardData[tab][0].data , index : i,key:tab}"></ng-container>
-        </div>
-    </ng-container>
-</div>
-
 
 <ng-template #insideDashboard let-insideItem="insideData" let-imageKey="image" let-isButton="button">
     <div class="row px-4 py-1 justify-content-between align-item-center">

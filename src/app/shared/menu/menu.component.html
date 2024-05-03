@@ -8,19 +8,69 @@
     </ng-container>
   </ng-container>
  </button>
-  <mat-menu #menu="matMenu">
-    <ng-container *ngFor="let item of matMenuContent">
-      <div class="w-100 languageBorder" [ngClass]="item?.isSelect ? 'activeLanguage' : ''">
-        <button mat-menu-item (click)="matToggleAction(item)">
-          <div class="row align-item-center">
-            <div class="col-md-4">
-              <img [src]="item?.flag" [alt]="item?.label" class="mx-2 languageIcon">
+  <mat-menu #menu="matMenu" [hasBackdrop]="false">
+    <ng-container *ngIf="matMenuType === 'icon' ">
+      <ng-container *ngFor="let item of matMenuContent">
+        <div class="w-100 languageBorder" [ngClass]="item?.isSelect ? 'activeLanguage' : ''">
+          <button mat-menu-item (click)="matToggleAction(item)">
+            <div class="row align-item-center">
+              <div class="col-md-4">
+                <img [src]="item?.flag" [alt]="item?.label" class="mx-2 languageIcon">
+              </div>
+              <div class="col-md-8">
+                {{item?.label | translate}}
+              </div>
             </div>
-            <div class="col-md-8">
-              {{item?.label | translate}}
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="matMenuType === 'text'">
+      <div class="row justify-content-start align-item-center m-2" style="gap: 10px;">
+        <div class="" (click)="$event.stopPropagation()">
+          <app-button [buttonText]="'Monthly'"></app-button>
+        </div>
+        <div class="" (click)="$event.stopPropagation()">
+          <app-button [buttonText]="'Yearly'"></app-button>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <form [formGroup]="dateForm" (ngSubmit)="onSubmit()" (click)="$event.stopPropagation()">
+          <div class="row justify-content-between align-item-center" >
+            <div class="col-md-6" >
+              <mat-form-field appearance="fill">
+                <mat-label>Month and Year</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="from">
+                <mat-datepicker-toggle matIconPrefix  [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker
+                                startView="multi-year"
+                                (monthSelected)="setMonthAndYear($event, picker)"
+                                panelClass="example-month-picker">
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+  
+            <div class="col-md-6">
+              <!-- <mat-form-field color="accent" appearance="fill" class="w-100">
+                <mat-label>End Date</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="to" placeholder="End Date">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+              </mat-form-field> -->
+              <!-- <mat-form-field appearance="fill">
+                <mat-label>To Date</mat-label>
+                <input matInput [matDatepicker]="dp" formControlName="to">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"panelClass="example-month-picker">
+                </mat-datepicker>
+              </mat-form-field> -->
             </div>
           </div>
-        </button>
+          <div class="row justify-content-end">
+            <app-button [buttonText]="'Apply'"></app-button>
+          </div>
+        </form>
       </div>
+      
     </ng-container>
   </mat-menu>

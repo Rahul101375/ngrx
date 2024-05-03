@@ -28,5 +28,8 @@
     "chemical" : "Chimique",
     "building" : "Bâtiment",
     "social" : "Social",
-    "environmental" : "Environnemental"
+    "environmental" : "Environnemental",
+    "Ethiopia" : "Éthiopie",
+    "Kenya" : "Kenya",
+    "Vietnam" : "Vietnam"
 }

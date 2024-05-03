@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -25,6 +25,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonToggleModule} from '@angular/material/button-toggle'
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MY_FORMATS } from 'src/app/shared/menu/menu.component';
 const data = [
 CommonModule,
   MatButtonModule,
@@ -48,14 +50,21 @@ CommonModule,
   MatMenuModule,
   MatButtonToggleModule,
   MatTabsModule,
-  MatCardModule
+  MatCardModule,
+  
 ]
 @NgModule({
    imports: [data],
    exports: [data],
    providers: [
-      MatDatepickerModule,
-   ]
+      {
+        provide: DateAdapter,
+        useClass: MomentDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+      },
+  
+      {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 
 export class MaterialModuleComponent { }

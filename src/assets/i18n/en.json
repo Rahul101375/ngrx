@@ -41,5 +41,9 @@
     "chemical" : "Chemical",
     "building" : "Building",
     "environmental" : "Environmental",
-    "social" : "Social"
+    "social" : "Social",
+    "ethiopia" : "Ethiopia",
+    "kenya" : "Kenya",
+    "vietnam" : "Vietnam"
+
 }

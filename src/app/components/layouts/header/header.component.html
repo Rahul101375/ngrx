@@ -30,7 +30,7 @@
 
                 <!-- Common Language -->
                 <ng-container>
-                    <app-menu [matMenuContent]="language" [matMenuType]="'icon'" (languageEvent)="setLanguage($event)">
+                    <app-menu [matMenuContent]="language" [matMenuType]="'icon'" (matMenuEvent)="setLanguage($event)">
                     </app-menu>
                 </ng-container>
             </ul>
