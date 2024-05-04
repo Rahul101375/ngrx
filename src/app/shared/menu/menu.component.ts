@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {FormGroup, FormControl,FormBuilder,Validator} from '@angular/forms';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
-
+import {ThemePalette} from '@angular/material/core';
 import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 
@@ -21,6 +19,12 @@ export const MY_FORMATS = {
   },
 };
 
+export interface Task {
+  name: string;
+  completed: boolean;
+  color: ThemePalette;
+  subtasks?: Task[];
+}
 
 @Component({
   selector: 'app-menu',
@@ -32,8 +36,24 @@ export class MenuComponent implements OnInit {
   @Input() matMenuContent : any;
   @Input() matMenuType : string ='' ;
   @Input() buttonLabel: string = 'Menu';
+  @Input() type:string = '';
+  @Input() iPList:any = [];
+  @Input() factoryList:any = [];
   @Output() matMenuEvent : EventEmitter<any> =  new EventEmitter<any>();
-  dateForm! :FormGroup
+  dateForm! :FormGroup;
+  task = {
+    name: 'Indeterminate',
+    completed: false,
+    color: 'primary',
+    subtasks: [
+      {name: 'Primary', completed: false, color: 'primary'},
+      {name: 'Accent', completed: false, color: 'accent'},
+      {name: 'Warn', completed: false, color: 'warn'},
+    ],
+  };
+
+  allComplete: boolean = false;
+
   constructor(private fb : FormBuilder) { }
 
   ngOnInit(): void {
@@ -61,5 +81,24 @@ export class MenuComponent implements OnInit {
     this.dateForm.setValue(ctrlValue);
     datepicker.close();
     
+  }
+  updateAllComplete() {
+    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  }
+
+  someComplete(): boolean {
+    if (this.task.subtasks == null) {
+      return false;
+    }
+    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: any) {
+    console.log("all",completed)
+    // this.allComplete = completed;
+    // if (this.task.subtasks == null) {
+    //   return;
+    // }
+    // this.task.subtasks.forEach(t => (t.completed = completed));
   }
 }

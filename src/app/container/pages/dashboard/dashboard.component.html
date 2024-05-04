@@ -10,7 +10,7 @@
                 </div>
             </ng-container>
             <div class="m-1">
-                <app-menu  [matMenuType]="'text'" [buttonLabel]="'filter'" (matMenuEvent)="filter($event)"> </app-menu>
+                <app-menu  [matMenuType]="'text'" [buttonLabel]="'filter'" (matMenuEvent)="filter($event)" [type]="'filter'"> </app-menu>
             </div>
             <div class="m-1">
                 <app-menu  [matMenuType]="'text'" [buttonLabel]="'Date Filter'" (matMenuEvent)="dateFilter($event)"> </app-menu>
