@@ -86,3 +86,9 @@ export const dashboard = {
 export const resource = {
     "USER_GLOSSARY" : "user/glossary"
 }
+export const captcha = {
+    USER_CAPTCHA : 'user/captcha/'
+}
+export const login = {
+    AUTH_LOGIN : 'auth/login'
+}

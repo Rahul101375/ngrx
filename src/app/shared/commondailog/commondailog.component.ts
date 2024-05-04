@@ -1,5 +1,5 @@
 import { Component, OnInit , Inject} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 
 @Component({
@@ -9,11 +9,13 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class CommondailogComponent implements OnInit {
  formType : any
-  constructor(@Inject(MAT_DIALOG_DATA) public data:MatDialog) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data:MatDialog,private dialogRef: MatDialogRef<CommondailogComponent>) {}
 
   ngOnInit(): void {
     console.log("dialog ",this.data)
     this.formType = this.data;
   }
-
+  closeDialog(event:boolean){
+    this.dialogRef.close()
+  }
 }

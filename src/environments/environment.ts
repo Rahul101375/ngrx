@@ -1,8 +1,8 @@
 let base_uri2 = 'https://stgmotapi.dhwaniris.in/web/api/';
-let baseURL = "https://stg_idhinstep.dhwaniris.in/web/api/";
+let baseURL = "https://uat_idhinstep.dhwaniris.in/web/api/";
 
 let origin = window.location.hostname;
-let secratKey ="1234";
+let secretKey ="1234";
 let captchaSecretKet = '6LdqKrMmAAAAAJ7DYHSe6wThAtPnhYyEkP099ZbP'
 
 if(origin == 'uatidhinstepui.dhwaniris.in')
@@ -21,7 +21,7 @@ export const environment = {
   production: true,
   url2: base_uri2,
   baseURL: baseURL,
-  secratKey:secratKey,
+  secretKey:secretKey,
   captchaSecretKet:captchaSecretKet,
 
 };

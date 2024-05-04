@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Install Angular</h2>
+<h2 mat-dialog-title>{{formType.title | translate}}</h2>
 <mat-dialog-content class="mat-typography">
-  <app-common-form [fields]="formType"></app-common-form>
+  <app-common-form [fields]="formType.formField" (dialogCloseEvent)="closeDialog($event)"></app-common-form>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<!-- <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close="true" cdkFocusInitial>Install</button>
-</mat-dialog-actions>
+  <button mat-button mat-dialog-close="true" cdkFocusInitial (click)="closeDialog($event)">submit</button>
+</mat-dialog-actions> -->

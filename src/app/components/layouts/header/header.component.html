@@ -15,14 +15,14 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <ng-container *ngFor="let item of publicHeader; let i=index">
-                   <ng-container *ngIf="!['Join Now','Login'].includes(item.label); else loginInfo">
+                   <ng-container *ngIf="!['joinNow','login'].includes(item.label); else loginInfo">
                     <li class="nav-item" [routerLinkActive]="item?.isActive ? 'active' : ''">
                         <a class="nav-link" [routerLink]="item?.routeUrl">{{item?.label ? (item.label | translate) : '---'}}</a>
                     </li>
                    </ng-container>
                    <ng-template #loginInfo>
                     <li class="nav-item" [routerLinkActive]="item?.isActive ? 'active' : ''">
-                        <button mat-button (click)="openDialog()">{{item?.label ? (item.label | translate) : '---'}}</button>
+                        <button mat-button (click)="openDialog(item.label)">{{item?.label ? (item.label | translate) : '---'}}</button>
                     </li>
                    </ng-template>
                 </ng-container>

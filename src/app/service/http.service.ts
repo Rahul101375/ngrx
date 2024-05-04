@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
+var Crypto = require("crypto-js");
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
   private baseUrl = environment.baseURL;
+  private formDataSubject = new BehaviorSubject<any>(null);
+   formData$ = this.formDataSubject.asObservable()
   constructor(private http:HttpClient) { }
   getToken() {
     return sessionStorage.getItem("token");
@@ -48,4 +51,11 @@ export class HttpService {
     // call snackbar and show error with message
     return throwError({messages: message, error});
   }
+  updateFormData(formData: any) {
+    this.formDataSubject.next(formData);
+  }
+
+getSecretKey(secretKey:any,password:any){
+  return Crypto.HmacSHA256(password, secretKey).toString();
+}
 }
