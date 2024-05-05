@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
-var Crypto = require("crypto-js");
+import { login } from './api_end_point';
+var CryptoJS = require("crypto-js");
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,21 @@ export class HttpService {
   return headers;
 }
 
+setHeadersLogin():any {
+  let headers = new HttpHeaders({
+      "Content-Type" : "application/json; charset=utf-8",
+  });
+  return headers;
+}
+
+
    getMethod(url:string ):Observable<any>{
     return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
    }
    allPostMethod(url:string,body:any){
+    if(url === login.AUTH_LOGIN){
+      return this.http.post(this.baseUrl + url ,body,this.setHeadersLogin()).pipe((catchError(this.errorHandler.bind)))
+    }
     return this.http.post(this.baseUrl + url , body ,this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
    }
 
@@ -56,6 +68,7 @@ export class HttpService {
   }
 
 getSecretKey(secretKey:any,password:any){
-  return Crypto.HmacSHA256(password, secretKey).toString();
+  let cipherText = CryptoJS.HmacSHA256(password,secretKey).toString()
+   return cipherText
 }
 }

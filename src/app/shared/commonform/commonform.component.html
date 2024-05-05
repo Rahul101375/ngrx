@@ -10,7 +10,7 @@
                         <input *ngSwitchCase="'email'" [type]="field.type" matInput [formControlName]="field.name"
                             placeholder="{{ field.label }}" autocomplete="off"/>
                         <mat-select *ngSwitchCase="'select'" [formControlName]="field.name" placeholder="{{ field.label }}">
-                            <mat-option *ngFor="let option of field.options" [value]="option">{{ option }}</mat-option>
+                            <mat-option *ngFor="let option of field.options" [value]="option.value">{{ option.label | translate }}</mat-option>
                         </mat-select>
                         <input *ngSwitchCase="'number'" [type]="field.type" matInput [formControlName]="field.name"
                             placeholder="{{ field.label }}" />

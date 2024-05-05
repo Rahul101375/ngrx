@@ -92,3 +92,6 @@ export const captcha = {
 export const login = {
     AUTH_LOGIN : 'auth/login'
 }
+export const register = {
+   USER_REGISTER :"user/register"
+}

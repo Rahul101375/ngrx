@@ -6,14 +6,16 @@ import * as _ from 'lodash'
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from 'src/app/service/http.service';
-import { login } from 'src/app/service/api_end_point';
+import { login, register } from 'src/app/service/api_end_point';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
   public language :any[] = [
     {label:"english",value:"en",flag:"../../../../assets/flags/en.jpg",isSelect:true},
     {label:"france",value:"fr", flag:"../../../../assets/flags/fr.png",isSelect:false},
@@ -45,14 +47,18 @@ export class HeaderComponent implements OnInit {
       label:'login', module:'',isActive:false,routeUrl:'login',permission:true
     }
   ]
+  countryList = [
+    {value : '+84',label:'vietnam'},
+    {value : '+251',label:'ethiopia'},
+    {value : '+254',label:'Kenya'},
+  ]
   public joinNowForms:any = {
     title : 'joinNow',
     formField :  [
       { type: 'text', name: 'name', label: 'Name', required: true,columnSize:6 ,fieldType:'text'},
       { type: 'email', name: 'email', label: 'Email', required: true,columnSize:6 ,fieldType:'email'},
-      { type: 'select', name: 'gender', label: 'Gender', options: ['Male', 'Female'], required: true,columnSize:2 ,fieldType:'select'},
-      { type: 'number', name: 'mobile', label: 'Mobile Number', required: true,columnSize:4 ,fieldType:'number'},
-      { type: 'select', name: 'type', label: 'I`m a', options: ['Other', 'other-2'], required: true,columnSize:6 ,fieldType:'select'},
+      { type: 'select', name: 'country_id', label: 'Select Country Code', options: this.countryList, required: true,columnSize:4 ,fieldType:'select'},
+      { type: 'number', name: 'mobile', label: 'Mobile Number', required: true,columnSize:8 ,fieldType:'number'},
       { type: 'password', name: 'password', label: 'Password', required: true,columnSize:6 ,fieldType:'password'},
       { type: 'password', name: 'confirmPassword', label: 'Confirm Password', required: true,columnSize:6 ,fieldType:'password'},
     ]
@@ -67,12 +73,15 @@ export class HeaderComponent implements OnInit {
       { type: '', name: 'captchaImage', label: 'Captcha',columnSize:4 ,fieldType:'image'},
     ]
   };
+  login: string = '';
 
   constructor(public dialog: MatDialog,public translateService:TranslateService, private cookieService : CookieService,private httpService:HttpService) {}
 
   ngOnInit(): void {
   }
   openDialog(label:string) {
+    this.login = label;
+    console.log ("label",this.login,label)
     const dialogRef = this.dialog.open(CommondailogComponent,{
       maxWidth:'600px',
       maxHeight:'auto',
@@ -100,25 +109,47 @@ export class HeaderComponent implements OnInit {
     this.httpService.formData$.subscribe({
       next:(response)=>{
         console.log("form subscribe",response)
-        let {captcha,email,captcha_id,password} = response
-        console.log("desturing",captcha,captcha_id,email,password)
-        let encryptedPassword = this.httpService.getSecretKey(environment.secretKey,password);
-        let randomKey = _.random.toString();
-        let twoTimesPasswordEncrypted = this.httpService.getSecretKey(randomKey,encryptedPassword)
-        console.log("encryptedPassword",twoTimesPasswordEncrypted)
-        let payload = {
-          captchaText : captcha,
-          captcha_id,
-          password,
-          random : randomKey,
-          username:email,
+        if(this.login === 'login'){
+          this.loginInformation(response)
         }
-        this.userLogin(payload)
+        if(this.login === 'joinNow'){
+          this.signUpInformation(response)
+        }
       },
       error : (error)=>{
         console.log("form subscribe error",error)
       }
     })
+  }
+  loginInformation(response:any){
+    let {captcha,email,captcha_id,password} = response
+        console.log("desturing",captcha,captcha_id,email,password)
+        let encryptedPassword = this.httpService.getSecretKey(environment.secretKey,password);
+        let randomKey = _.random(10, 20,true);
+        // let twoTimesPasswordEncrypted = this.httpService.getSecretKey(randomKey,encryptedPassword)
+        // console.log("encryptedPassword",twoTimesPasswordEncrypted)
+        let payload = {
+          captchaText : captcha,
+          captcha_id,
+          password:encryptedPassword,
+          username:email,
+        }
+        // this.userLogin(payload)
+        let response$=this.httpService.allPostMethod(login.AUTH_LOGIN ,payload);
+        console.log("login observables",response$)
+        this.subscribeObservable(response$)
+  }
+  signUpInformation(response:any){
+    let {country_code,email,mobile,name,password} = response;
+    let encryptedPassword = this.httpService.getSecretKey(environment.secretKey,password);
+    console.log("encryptedPassword join Now",encryptedPassword)
+        let randomKey = _.random(0, 5,true);
+        console.log("random key",randomKey)
+        // let twoTimesPasswordEncrypted = this.httpService.getSecretKey(randomKey,encryptedPassword)
+        let payload = {country_code,email,mobile,name,password:encryptedPassword}
+        let response$=this.httpService.allPostMethod(register.USER_REGISTER ,payload);
+        this.subscribeObservable(response$)
+
   }
   userLogin(payload:any){
     // this.httpService.allPostMethod(login.AUTH_LOGIN,payload).subscribe({
@@ -131,6 +162,13 @@ export class HeaderComponent implements OnInit {
     // })
     this.httpService.allPostMethod(login.AUTH_LOGIN,payload).subscribe((res:any)=>{
       console.log("login",res)
+    })
+  }
+  subscribeObservable(res:Observable<any>,type:string = ""){
+    res.subscribe({
+      next : (response)=>{
+        console.log(type,response)
+      }
     })
   }
 }
