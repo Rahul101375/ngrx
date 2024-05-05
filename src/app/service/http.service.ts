@@ -11,7 +11,9 @@ var CryptoJS = require("crypto-js");
 export class HttpService {
   private baseUrl = environment.baseURL;
   private formDataSubject = new BehaviorSubject<any>(null);
-   formData$ = this.formDataSubject.asObservable()
+   formData$ = this.formDataSubject.asObservable();
+  private snackBarSubject = new BehaviorSubject<any>(null);
+   snackBarData$ = this.snackBarSubject.asObservable()
   constructor(private http:HttpClient) { }
   getToken() {
     return sessionStorage.getItem("token");
@@ -70,5 +72,8 @@ setHeadersLogin():any {
 getSecretKey(secretKey:any,password:any){
   let cipherText = CryptoJS.HmacSHA256(password,secretKey).toString()
    return cipherText
+}
+updateSnackBarData(snackbarData:any){
+  this.snackBarSubject.next(snackbarData)
 }
 }

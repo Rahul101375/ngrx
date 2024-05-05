@@ -37,6 +37,8 @@ import { TimeLineComponent } from './container/pages/chart/time-line/time-line.c
 import { CardComponent } from './shared/commonComponents/card/card.component';
 import { LoaderComponent } from './shared/commonComponents/loader/loader.component';
 import { CommonFilterComponent } from './shared/commonComponents/common-filter/common-filter.component';
+import { SpecialCharacterDirective } from './shared/directive/specail-character.directive';
+import { SnackBarComponent } from './shared/commonComponents/snack-bar/snack-bar.component';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -70,6 +72,8 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
     CardComponent,
     LoaderComponent,
     CommonFilterComponent,
+    SpecialCharacterDirective,
+    SnackBarComponent,
     
   ],
   imports: [

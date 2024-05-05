@@ -28,6 +28,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from 'src/app/shared/menu/menu.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 const data = [
 CommonModule,
   MatButtonModule,
@@ -52,7 +53,8 @@ CommonModule,
   MatButtonToggleModule,
   MatTabsModule,
   MatCardModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSnackBarModule
 ]
 @NgModule({
    imports: [data],
