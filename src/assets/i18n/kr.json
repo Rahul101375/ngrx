@@ -21,5 +21,13 @@
     "building" : "건물",
     "Ethiopia" : "에티오피아",
     "Kenya" : "케냐",
-    "Vietnam" : "베트남"
+    "Vietnam" : "베트남",
+    "OTP Verification" : "OTP 인증",
+    "Your OTP has been sent successfully !" : "OTP가 성공적으로 전송되었습니다!",
+    "Verify" : "확인",
+    "Signup" :"가입하기",
+    "Login" :"로그인",
+    "Join Now" : "지금 가입하기",
+    "Get verified link" :"인증 링크 받기",
+    "Back to home" :"홈으로 돌아가기"
 }

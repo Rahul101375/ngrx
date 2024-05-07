@@ -2,13 +2,13 @@
     <div class="row align-item-center">
         <div *ngFor="let field of fields" [class]="'col-sm-' + field?.columnSize" >
             <ng-container *ngIf="!['icon','image'].includes(field.fieldType)">
-                <mat-form-field appearance="legacy" class="w-100" [ngClass]="field.fieldType === 'image' ? 'backGroundColor' : ''">
-                    <mat-label [for]="field.name">{{field.label}}</mat-label>
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label >{{field.label}}</mat-label>
                     <ng-container [ngSwitch]="field.fieldType">
                         <input *ngSwitchCase="'text'" [type]="field.type" matInput [formControlName]="field.name"
-                            placeholder="{{ field.label }}" [id]="field.name" autocomplete="off" appSpecialCharacter/>
+                            placeholder="{{ field.label }}"  autocomplete="off" appSpecialCharacter/>
                         <input *ngSwitchCase="'email'" [type]="field.type" matInput [formControlName]="field.name"
-                            placeholder="{{ field.label }}" [id]="field.name" autocomplete="off"/>
+                            placeholder="{{ field.label }}"  autocomplete="off"/>
                         <mat-select *ngSwitchCase="'select'" [formControlName]="field.name" placeholder="{{ field.label }}">
                             <mat-option *ngFor="let option of field.options" [value]="option.value">{{ option.label | translate }}</mat-option>
                         </mat-select>
@@ -28,10 +28,13 @@
             <ng-container *ngIf="field.fieldType == 'image'">
                 <img [src]="captchaImage" alt="Captcha Image" />
             </ng-container>
+            <ng-container *ngIf="field.fieldType == 'forgetPassword'">
+                <span class="defaultColor" routerLink="/forget-password" (click)="closeDialog()">Forget Password ?</span>
+            </ng-container>
         </div>
     </div>
     <div [ngClass]="isButtonStyle ? 'backGroundColor p-1 text-center buttonBorderRadius' : ''">
-        <button mat-raised-button type="submit" [ngClass]="isButtonStyle ? 'text-white textColor bg-transparent border-0 f-18 buttonFontWeight' : '' " [disabled]="form.invalid">{{buttonText}}</button>
+        <button mat-raised-button type="submit" [ngClass]="isButtonStyle ? 'text-white textColor bg-transparent border-0 f-18 buttonFontWeight' : '' " [disabled]="form.invalid">{{buttonText | translate}}</button>
     </div>
 </form>
 <!-- -->

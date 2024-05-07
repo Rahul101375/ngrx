@@ -39,6 +39,7 @@ import { LoaderComponent } from './shared/commonComponents/loader/loader.compone
 import { CommonFilterComponent } from './shared/commonComponents/common-filter/common-filter.component';
 import { SpecialCharacterDirective } from './shared/directive/specail-character.directive';
 import { SnackBarComponent } from './shared/commonComponents/snack-bar/snack-bar.component';
+import { ForgetPasswordComponent } from './container/pages/forget-password/forget-password.component';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -74,6 +75,7 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
     CommonFilterComponent,
     SpecialCharacterDirective,
     SnackBarComponent,
+    ForgetPasswordComponent,
     
   ],
   imports: [

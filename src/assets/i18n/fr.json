@@ -31,5 +31,13 @@
     "environmental" : "Environnemental",
     "Ethiopia" : "Éthiopie",
     "Kenya" : "Kenya",
-    "Vietnam" : "Vietnam"
+    "Vietnam" : "Vietnam",
+    "OTP Verification" : "Vérification OTP",
+    "Your OTP has been sent successfully !" : "Votre OTP a été envoyé avec succès !",
+    "Verify" : "Vérifier",
+    "Signup" :"S'inscrire",
+    "Login" :"Connexion",
+    "Join Now" : "Rejoignez-nous",
+    "Get verified link" :"Obtenir un lien vérifié",
+    "Back to home" :"Retour à l'accueil"
 }

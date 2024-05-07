@@ -7,6 +7,7 @@ import { AboutUsComponent } from './container/pages/about-us/about-us.component'
 import { ImpactStoriesComponent } from './container/pages/impactStories/impact-stories/impact-stories.component';
 import { OurPartnersComponent } from './container/pages/our-partners/our-partners.component';
 import { LoaderComponent } from './shared/commonComponents/loader/loader.component';
+import { ForgetPasswordComponent } from './container/pages/forget-password/forget-password.component';
 
 const routes: Routes = [
   {path:'',component:LoaderComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'impact-stories',component:ImpactStoriesComponent},
   {path:'about-us',component:AboutUsComponent},
   {path:'our-partners',component:OurPartnersComponent},
+  {path:'forget-password',component:ForgetPasswordComponent},
 ];
 
 @NgModule({

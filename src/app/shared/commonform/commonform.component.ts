@@ -44,10 +44,16 @@ export class CommonFormComponent implements OnInit {
       this.markAllFieldsAsTouched(this.form);
     }
     this.submitForm.emit(this.form.value);
-    this.form.value.captcha_id = this.captchaId
-    this.httpService.updateFormData(this.form.value);
-    this.dialogCloseEvent.emit(true)
+    
+    if(this.form.value){
+      this.form.value.captcha_id = this.captchaId
+      this.httpService.updateFormData(this.form.value);
+    }
+   this.closeDialog()
 
+  }
+  closeDialog() {
+    this.dialogCloseEvent.emit(true)
   }
 
   markAllFieldsAsTouched(group: FormGroup) {

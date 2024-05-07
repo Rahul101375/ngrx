@@ -35,7 +35,10 @@ setHeadersLogin():any {
 }
 
 
-   getMethod(url:string ):Observable<any>{
+   getMethod(url:string ,body:any={}):Observable<any>{
+    if(body){
+      return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
+    }
     return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
    }
    allPostMethod(url:string,body:any){
@@ -76,4 +79,7 @@ getSecretKey(secretKey:any,password:any){
 updateSnackBarData(snackbarData:any){
   this.snackBarSubject.next(snackbarData)
 }
+ getOutSideMethod(baseURL:string){
+  return this.http.get(baseURL)
+ }
 }

@@ -44,6 +44,12 @@
     "social" : "Social",
     "ethiopia" : "Ethiopia",
     "kenya" : "Kenya",
-    "vietnam" : "Vietnam"
+    "vietnam" : "Vietnam",
+    "otpVerification" : "OTP Verification",
+    "yourOtpHasBeenSentSuccessfully !" : "Your OTP has been sent successfully !",
+    "verify" : "Verify",
+    "signUp" : "Signup",
+    "getVerifiedLink":"Get verified link",
+    "backToHome" : "Back to home"
 
 }

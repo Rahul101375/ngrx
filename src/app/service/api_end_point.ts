@@ -95,3 +95,9 @@ export const login = {
 export const register = {
    USER_REGISTER :"user/register"
 }
+export const ipsa = {
+    IPSA : 'ipsa/'
+}
+export const otpRefresh = {
+    OTP_REFRESH : 'otp/refresh'
+}

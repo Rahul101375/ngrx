@@ -6,7 +6,7 @@ import * as _ from 'lodash'
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from 'src/app/service/http.service';
-import { login, register } from 'src/app/service/api_end_point';
+import { ipsa, login, register } from 'src/app/service/api_end_point';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 @Component({
@@ -54,6 +54,7 @@ export class HeaderComponent implements OnInit {
   ]
   public joinNowForms:any = {
     title : 'joinNow',
+    isButtonStyle : true,
     formField :  [
       { type: 'text', name: 'name', label: 'Name', required: true,columnSize:6 ,fieldType:'text'},
       { type: 'email', name: 'email', label: 'Email', required: true,columnSize:6 ,fieldType:'email'},
@@ -65,15 +66,33 @@ export class HeaderComponent implements OnInit {
   };
   public loginForms:any = {
     title : "login",
+    isButtonStyle : true,
     formField :  [
       { type: 'email', name: 'email', label: 'Email', required: true,columnSize:12 ,fieldType:'email'},
       { type: 'password', name: 'password', label: 'Password', required: true,columnSize:12,fieldType:'password' },
       { type: 'text', name: 'captcha', label: 'Enter Captcha', required: true,columnSize:6 ,fieldType:'text'},
       { type: '', name: 'icon', label: 'Refresh',columnSize:2 ,fieldType:'icon'},
       { type: '', name: 'captchaImage', label: 'Captcha',columnSize:4 ,fieldType:'image'},
+      { type: '', name: 'forgetPassword', label: 'Forget Password',columnSize:4 ,fieldType:'forgetPassword'},
     ]
   };
   login: string = '';
+  otpForm = {
+    title : 'otpVerification',
+    message : 'yourOtpHasBeenSentSuccessfully !',
+    email:'',
+    formField :  [
+      { type: 'text', name: 'otp1', required: true,columnSize:2 ,fieldType:'text'},
+      { type: 'text', name: 'otp2', required: true,columnSize:2 ,fieldType:'text'},
+      { type: 'text', name: 'otp3', required: true,columnSize:2 ,fieldType:'text'},
+      { type: 'text', name: 'otp4', required: true,columnSize:2 ,fieldType:'text'},
+      { type: 'text', name: 'otp5', required: true,columnSize:2 ,fieldType:'text'},
+      { type: 'text', name: 'otp6', required: true,columnSize:2 ,fieldType:'text'}
+    ]
+  }
+  email: string = '';
+  ipsaEndPoint: string = 'create';
+  password: string = '';
 
   constructor(public dialog: MatDialog,public translateService:TranslateService, private cookieService : CookieService,private httpService:HttpService) {}
 
@@ -87,13 +106,39 @@ export class HeaderComponent implements OnInit {
       maxHeight:'auto',
       backdropClass: 'blur-background',
       panelClass: 'hide-background', 
-      data: label === 'login' ? this.loginForms : this.joinNowForms
+      data: this.dialogContent(label)
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.getFormValue()
+      console.log("Dialog result", JSON.stringify(result),result.event,['login','joinNow'].includes(result.event));
+      // if(['login','joinNow'].includes(result.type)){
+      //   this.getFormValue()
+      // }
+      // if(result.type === 'verify'){
+      //   after verifiaction what ever you do
+      // }
+      debugger
+      if(['login','joinNow'].includes(label) && !result.event){
+          this.getFormValue()
+        }
+        else if(['login','joinNow'].includes(result.event)){
+          console.log("dialog")
+          this.openDialog(result.event)
+        }
+        // else{
+
+        // }
     });
+  }
+  dialogContent(label: string): any {
+    switch(label){
+      case 'login' : 
+       return this.loginForms;
+      case 'joinNow' : 
+        return this.joinNowForms;
+      case 'verify' : 
+        return this.otpForm;
+    }
   }
   setLanguage(event:any){
     this.cookieService.delete('lang');
@@ -108,7 +153,7 @@ export class HeaderComponent implements OnInit {
   getFormValue(){
     this.httpService.formData$.subscribe({
       next:(response)=>{
-        console.log("form subscribe",response)
+        // console.log("form subscribe",response)
         if(this.login === 'login'){
           this.loginInformation(response)
         }
@@ -122,44 +167,38 @@ export class HeaderComponent implements OnInit {
     })
   }
   loginInformation(response:any){
-    let {captcha,email,captcha_id,password} = response
-        console.log("desturing",captcha,captcha_id,email,password)
+    if(response){
+      let {captcha,email,captcha_id,password} = response
+        console.log("desiring",captcha,captcha_id,email,password)
         let encryptedPassword = this.httpService.getSecretKey(environment.secretKey,password);
         let randomKey = _.random(10, 20,true);
-        // let twoTimesPasswordEncrypted = this.httpService.getSecretKey(randomKey,encryptedPassword)
-        // console.log("encryptedPassword",twoTimesPasswordEncrypted)
         let payload = {
           captchaText : captcha,
           captcha_id,
           password:encryptedPassword,
           username:email,
         }
-        // this.userLogin(payload)
         let response$=this.httpService.allPostMethod(login.AUTH_LOGIN ,payload);
         console.log("login observables",response$)
         this.subscribeObservable(response$)
+    }
   }
   signUpInformation(response:any){
-    let {country_code,email,mobile,name,password} = response;
+    if(response){
+      let {country_code,email,mobile,name,password} = response;
+    this.email = email;
+    this.password = password;
     let encryptedPassword = this.httpService.getSecretKey(environment.secretKey,password);
     console.log("encryptedPassword join Now",encryptedPassword)
         let randomKey = _.random(0, 5,true);
         console.log("random key",randomKey)
-        // let twoTimesPasswordEncrypted = this.httpService.getSecretKey(randomKey,encryptedPassword)
         let payload = {country_code,email,mobile,name,password:encryptedPassword}
         let response$=this.httpService.allPostMethod(register.USER_REGISTER ,payload);
-        this.subscribeObservable(response$)
+        this.subscribeObservable(response$,'')
+    }
 
   }
   userLogin(payload:any){
-    // this.httpService.allPostMethod(login.AUTH_LOGIN,payload).subscribe({
-    //   next : (response)=>{
-    //     console.log("login success",response)
-    //   },
-    //   error : (error)=>{
-    //     console.log("login error",error)
-    //   }
-    // })
     this.httpService.allPostMethod(login.AUTH_LOGIN,payload).subscribe((res:any)=>{
       console.log("login",res)
     })
@@ -167,7 +206,59 @@ export class HeaderComponent implements OnInit {
   subscribeObservable(res:Observable<any>,type:string = ""){
     res.subscribe({
       next : (response)=>{
-        console.log(type,response)
+        this.httpService.updateSnackBarData(response.message);
+        if(this.login === 'joinNow'){
+          this.openDialog('verify');
+          this.otpForm.email = this.email
+          this.ipsaGetMethod();
+          this.ipsaPostMethod()
+        }
+      },
+      error : (error)=>{
+        this.httpService.updateSnackBarData(error.error.message)
+        console.log("join error",error);
+      }
+    })
+  }
+  ipsaGetMethod(){
+    let payload = {
+      endpoint:`/user/submission?data.e/user/submission?data.email=${this.email}`,
+      method : 'GET',
+      requestBody : {},
+      headers : {
+        'Content-type' : 'application/json'
+      }
+    }
+    this.httpService.getMethod(ipsa.IPSA + this.ipsaEndPoint ,payload).subscribe({
+      next : (ipsaRes)=>{
+        console.log("get ipsa resp",ipsaRes)
+      },
+      error : (error)=>{
+        console.log("get ipsa error",error)
+      }
+    })
+
+  }
+  ipsaPostMethod(){
+    let payload = {
+      endpoint:`/admin/submission?query=true`,
+      method : 'POST',
+      requestBody : {
+        data : {
+          email : this.email,
+          password : this.password
+        }
+      },
+      headers : {
+        'Content-type' : 'application/json'
+      }
+    }
+    this.httpService.allPostMethod(ipsa.IPSA + this.ipsaEndPoint ,payload).subscribe({
+      next : (ipsaRes)=>{
+        console.log("post ipsa resp",ipsaRes)
+      },
+      error : (error)=>{
+        console.log("post ipsa error",error)
       }
     })
   }
