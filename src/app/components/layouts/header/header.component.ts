@@ -6,7 +6,7 @@ import * as _ from 'lodash'
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from 'src/app/service/http.service';
-import { ipsa, login, register } from 'src/app/service/api_end_point';
+import { authentication, ipsa, login, register } from 'src/app/service/api_end_point';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 @Component({
@@ -117,8 +117,7 @@ export class HeaderComponent implements OnInit {
       // if(result.type === 'verify'){
       //   after verifiaction what ever you do
       // }
-      debugger
-      if(['login','joinNow'].includes(label) && !result.event){
+      if(['login','joinNow'].includes(label) && !['login','joinNow'].includes(result.event)){
           this.getFormValue()
         }
         else if(['login','joinNow'].includes(result.event)){
@@ -153,7 +152,6 @@ export class HeaderComponent implements OnInit {
   getFormValue(){
     this.httpService.formData$.subscribe({
       next:(response)=>{
-        // console.log("form subscribe",response)
         if(this.login === 'login'){
           this.loginInformation(response)
         }
@@ -172,11 +170,14 @@ export class HeaderComponent implements OnInit {
         console.log("desiring",captcha,captcha_id,email,password)
         let encryptedPassword = this.httpService.getSecretKey(environment.secretKey,password);
         let randomKey = _.random(10, 20,true);
+        let randomKeyString = randomKey.toString();
+        let caliperText = this.httpService.getSecretKey(randomKeyString,encryptedPassword)
         let payload = {
           captchaText : captcha,
           captcha_id,
-          password:encryptedPassword,
+          password:caliperText,
           username:email,
+          random:randomKeyString
         }
         let response$=this.httpService.allPostMethod(login.AUTH_LOGIN ,payload);
         console.log("login observables",response$)
@@ -213,6 +214,17 @@ export class HeaderComponent implements OnInit {
           this.ipsaGetMethod();
           this.ipsaPostMethod()
         }
+        if(this.login === 'login'){
+          let {country_id,email,factory_id,id,industrialpark_id,name,role_id,userlevel_id} = response.data;
+          let payload = {country_id,email,factory_id,id,industrialpark_id,name,role_id,userlevel_id}
+          sessionStorage.setItem('token',response.token);
+          sessionStorage.setItem('userInfo',JSON.stringify(response.data))
+          console.log("login-session",payload);
+          this.userPermissionJson(role_id)
+        }
+        if(type === 'viewPermission'){
+          console.log(type,response)
+        }
       },
       error : (error)=>{
         this.httpService.updateSnackBarData(error.error.message)
@@ -220,6 +232,12 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
+  userPermissionJson(role_id: string) {
+    let authEndPoint:string = `view?role_id=${role_id}`
+    let viewPermission$ = this.httpService.getMethod(authentication.AUTHENTICATION + authEndPoint)
+    this.subscribeObservable(viewPermission$,'viewPermission') 
+
+    }
   ipsaGetMethod(){
     let payload = {
       endpoint:`/user/submission?data.e/user/submission?data.email=${this.email}`,

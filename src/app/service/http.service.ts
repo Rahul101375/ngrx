@@ -15,27 +15,22 @@ export class HttpService {
   private snackBarSubject = new BehaviorSubject<any>(null);
    snackBarData$ = this.snackBarSubject.asObservable()
   constructor(private http:HttpClient) { }
-  getToken() {
-    return sessionStorage.getItem("token");
-}
+ 
 
   setHeaders():any {
   let headers = new HttpHeaders({
       "Content-Type" : "application/json",
-      "x-access-token": this.getToken()!,
+      "x-access-token": `${this.getToken()}`,
   });
   return headers;
 }
-
-setHeadersLogin():any {
-  let headers = new HttpHeaders({
-      "Content-Type" : "application/json; charset=utf-8",
-  });
-  return headers;
+getToken() {
+  return sessionStorage.getItem("token");
 }
 
 
    getMethod(url:string ,body:any={}):Observable<any>{
+    console.log("token",this.getToken())
     if(body){
       return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
     }
@@ -43,7 +38,7 @@ setHeadersLogin():any {
    }
    allPostMethod(url:string,body:any){
     if(url === login.AUTH_LOGIN){
-      return this.http.post(this.baseUrl + url ,body,this.setHeadersLogin()).pipe((catchError(this.errorHandler.bind)))
+      return this.http.post(this.baseUrl + url ,body).pipe((catchError(this.errorHandler.bind)))
     }
     return this.http.post(this.baseUrl + url , body ,this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
    }

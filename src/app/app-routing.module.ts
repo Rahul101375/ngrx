@@ -8,6 +8,8 @@ import { ImpactStoriesComponent } from './container/pages/impactStories/impact-s
 import { OurPartnersComponent } from './container/pages/our-partners/our-partners.component';
 import { LoaderComponent } from './shared/commonComponents/loader/loader.component';
 import { ForgetPasswordComponent } from './container/pages/forget-password/forget-password.component';
+import { UserListComponent } from './container/admin/permission/user-list/user-list.component';
+import { AuthGuard } from './container/admin/auth/auth.guard';
 
 const routes: Routes = [
   {path:'',component:LoaderComponent},
@@ -18,6 +20,11 @@ const routes: Routes = [
   {path:'about-us',component:AboutUsComponent},
   {path:'our-partners',component:OurPartnersComponent},
   {path:'forget-password',component:ForgetPasswordComponent},
+  {
+    path : 'user' , 
+    component:UserListComponent,
+    canActivate:[AuthGuard]
+  }
 ];
 
 @NgModule({

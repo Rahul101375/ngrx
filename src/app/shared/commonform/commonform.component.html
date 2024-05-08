@@ -6,7 +6,7 @@
                     <mat-label >{{field.label}}</mat-label>
                     <ng-container [ngSwitch]="field.fieldType">
                         <input *ngSwitchCase="'text'" [type]="field.type" matInput [formControlName]="field.name"
-                            placeholder="{{ field.label }}"  autocomplete="off" appSpecialCharacter/>
+                            placeholder="{{ field.label }}"  autocomplete="off" />
                         <input *ngSwitchCase="'email'" [type]="field.type" matInput [formControlName]="field.name"
                             placeholder="{{ field.label }}"  autocomplete="off"/>
                         <mat-select *ngSwitchCase="'select'" [formControlName]="field.name" placeholder="{{ field.label }}">

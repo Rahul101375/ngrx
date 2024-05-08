@@ -21,7 +21,7 @@ import { MaterialModuleComponent } from './materails/materail/materail.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule  } from '@ngrx/store';
 import { rootReducer } from './reducers';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ButtonComponent } from './shared/commontable/button/button.component';
 import { SafeHtmlPipe } from './shared/pipe/safe-html.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -40,6 +40,8 @@ import { CommonFilterComponent } from './shared/commonComponents/common-filter/c
 import { SpecialCharacterDirective } from './shared/directive/specail-character.directive';
 import { SnackBarComponent } from './shared/commonComponents/snack-bar/snack-bar.component';
 import { ForgetPasswordComponent } from './container/pages/forget-password/forget-password.component';
+import { UserListComponent } from './container/admin/permission/user-list/user-list.component';
+import { InterceptorInterceptor } from './container/admin/interceptor/interceptor.interceptor';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -76,6 +78,7 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
     SpecialCharacterDirective,
     SnackBarComponent,
     ForgetPasswordComponent,
+    UserListComponent,
     
   ],
   imports: [
@@ -94,7 +97,14 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
       },
     })
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+    provide : HTTP_INTERCEPTORS,
+    useClass : InterceptorInterceptor,
+    multi : true
+  }
+],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

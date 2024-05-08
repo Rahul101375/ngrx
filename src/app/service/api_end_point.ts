@@ -101,3 +101,6 @@ export const ipsa = {
 export const otpRefresh = {
     OTP_REFRESH : 'otp/refresh'
 }
+export const authentication ={
+    AUTHENTICATION:"authenication/"
+}
