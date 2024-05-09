@@ -10,6 +10,7 @@ import { LoaderComponent } from './shared/commonComponents/loader/loader.compone
 import { ForgetPasswordComponent } from './container/pages/forget-password/forget-password.component';
 import { UserListComponent } from './container/admin/permission/user-list/user-list.component';
 import { AuthGuard } from './container/admin/auth/auth.guard';
+import { ResourceViewsComponent } from './container/pages/resources/resource-views/resource-views.component';
 
 const routes: Routes = [
   {path:'',component:LoaderComponent},
@@ -20,6 +21,10 @@ const routes: Routes = [
   {path:'about-us',component:AboutUsComponent},
   {path:'our-partners',component:OurPartnersComponent},
   {path:'forget-password',component:ForgetPasswordComponent},
+  {
+    path:'resources-view',
+    component:ResourceViewsComponent
+  },
   {
     path : 'user' , 
     component:UserListComponent,

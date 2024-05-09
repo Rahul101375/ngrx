@@ -217,26 +217,36 @@ export class HeaderComponent implements OnInit {
         if(this.login === 'login'){
           let {country_id,email,factory_id,id,industrialpark_id,name,role_id,userlevel_id} = response.data;
           let payload = {country_id,email,factory_id,id,industrialpark_id,name,role_id,userlevel_id}
-          sessionStorage.setItem('token',response.token);
-          sessionStorage.setItem('userInfo',JSON.stringify(response.data))
+          if(response.token){
+            sessionStorage.setItem('token',response.token);
+          }
+          if(response.data){
+            sessionStorage.setItem('userInfo',JSON.stringify(response.data))
+          }
+          
           console.log("login-session",payload);
           this.userPermissionJson(role_id)
         }
         if(type === 'viewPermission'){
-          console.log(type,response)
+          console.log(type,response);
+          if(response.data){
+            sessionStorage.setItem('userPermissionInfo',JSON.stringify(response.data))
+          }
         }
       },
       error : (error)=>{
-        this.httpService.updateSnackBarData(error.error.message)
         console.log("join error",error);
+        this.httpService.updateSnackBarData(error.error.message)
+        
       }
     })
   }
   userPermissionJson(role_id: string) {
-    let authEndPoint:string = `view?role_id=${role_id}`
-    let viewPermission$ = this.httpService.getMethod(authentication.AUTHENTICATION + authEndPoint)
-    this.subscribeObservable(viewPermission$,'viewPermission') 
-
+    if(role_id){
+       let authEndPoint:string = `view?role_id=${role_id}`
+       let viewPermission$ = this.httpService.getMethod(authentication.AUTHENTICATION + authEndPoint)
+       this.subscribeObservable(viewPermission$,'viewPermission') 
+      }
     }
   ipsaGetMethod(){
     let payload = {

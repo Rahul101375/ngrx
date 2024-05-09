@@ -1,1 +1,30 @@
-<p>resource-views works!</p>
+<div class="row align-item-center m-2 p-1">
+    <span class="row align-item-center m-2">
+        <span class="mx-1"><mat-icon>keyboard_backspace</mat-icon></span>
+        <span class="font-weight-bold">Resource Center /</span>
+        <span class="mx-1">{{categoryName}}</span>
+    </span>
+</div>
+
+<div class="row justify-content-between align-item-center m-2 p-2">
+    <ng-container *ngFor="let resourceView of resourceViewData">
+        <div class="col-md-3 col-sm-6 reviewBackground">
+            <div class="row justify-content-between align-item-center">
+                <div class="col-md-8">
+                    <div class="row justify-content-between align-item-center">
+                        <div class="col-md-4 m-auto">
+                            image
+                        </div>
+                        <div class="col-md-8 m-auto p-2">
+                            <p class="m-0">{{resourceView.name}}</p>
+                            <p>Created on: {{resourceView.createdAt | date : 'shortDate'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 m-auto">
+                   <span class="font-weight-bold defaultColor">{{resourceView['subcategoryreport.count']}}</span> file
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

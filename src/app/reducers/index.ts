@@ -22,7 +22,8 @@ export interface RootReducerState {
   environmentalGroupBar : dashboard.EnvironmentalGroupBarReducerState,
   country : dashboard.CountryReducerState,
   resourceGlossary : resource.ResourceGlossaryState,
-  // impactStory : impactStory.ImpactStoryReducerState
+  // impactStory : impactStory.ImpactStoryReducerState,
+  resourceSubCategory : resource.ResourceSubCategoryState
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
@@ -44,7 +45,8 @@ export const rootReducer : ActionReducerMap<RootReducerState> = {
   environmentalGroupBar: dashboard.EnvironmentalGroupBarReducer,
   country : dashboard.CountryReducer,
   resourceGlossary : resource.GlossaryReducer,
-  // impactStory : impactStory.ImpactStoryReducer
+  // impactStory : impactStory.ImpactStoryReducer,
+  resourceSubCategory : resource.ResourceSubCategoryReducer
 }
 
 export const getUserState = (state : RootReducerState) => state.users;
@@ -148,3 +150,9 @@ export const getResourceGlossaryState = (state : RootReducerState) => state.reso
 export const getResourceGlossaryLoadingForGlossaryLoading = createSelector(getResourceGlossaryState,resource.getResourceGlossaryLoading);
 export const getResourceGlossaryLoadedForGlossaryLoaded = createSelector(getResourceGlossaryState,resource.getResourceGlossaryLoaded);
 export const getResourceGlossaryDataForGlossaryData = createSelector(getResourceGlossaryState,resource.getResourceGlossaryData);
+
+export const getResourceSubCategoryState = (state:RootReducerState)=>state.resourceSubCategory;
+
+export const getResourceSubCategoryLoadingForLoading = createSelector(getResourceSubCategoryState,resource.getResourceSubCategoryLoading);
+export const getResourceSubCategoryLoadingForLoaded = createSelector(getResourceSubCategoryState,resource.getResourceSubCategoryLoaded);
+export const getResourceSubCategoryLoadingForData = createSelector(getResourceSubCategoryState,resource.getResourceSubCategoryData);

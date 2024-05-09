@@ -84,7 +84,9 @@ export const dashboard = {
 }
 
 export const resource = {
-    "USER_GLOSSARY" : "user/glossary"
+    "USER_GLOSSARY" : "user/glossary",
+    "USER_SUBCATEGORY" : "user/subcategory/",
+    "USER_SUBCATEGORY_REPORT" : "user/subcategoryreport/",
 }
 export const captcha = {
     USER_CAPTCHA : 'user/captcha/'
@@ -102,5 +104,5 @@ export const otpRefresh = {
     OTP_REFRESH : 'otp/refresh'
 }
 export const authentication ={
-    AUTHENTICATION:"authenication/"
+    AUTHENTICATION:"user/"
 }

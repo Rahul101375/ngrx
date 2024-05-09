@@ -14,7 +14,7 @@
      </div>
      <div *ngIf="keyName == 'category' && j < 2" class="col-md-3 col-sm-6 cardBanner m-2 imageRoundShape" [ngStyle]="{'background-image': 'url(' + ( item.image) + ')'}">
             <h3 [ngClass]="item.image ? 'text-white' : 'text-black'" class="textPosition">{{item?.name | translate}}</h3>
-            <div class="buttonPosition"><app-button [buttonText]="'View'"></app-button></div>
+            <div class="buttonPosition"><app-button [buttonText]="'View'" [routerLink]="['/resources-view']" [queryParams]="{id:item.id,name:item.name}"></app-button></div>
     </div>
 
      <div *ngIf="keyName == 'glossary' && j < 1" class="m-3 p-3">

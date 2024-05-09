@@ -5,7 +5,8 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,16 +16,25 @@ export class InterceptorInterceptor implements HttpInterceptor {
 
   constructor(private router: Router) { }
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (this.getToken() && (this.router.url.includes('admin') ||this.router.url.includes('login') )) {
-      request = request.clone({
-        setHeaders: ({
-          'Authorization': `Bearer ${this.getToken()}`
-        })
-      })
+    if (request.headers.has('x-access-token')) {
+      console.log("Request already has Authorization header, skipping...");
+      return next.handle(request);
+    }
+    const token = this.getToken();
+    if (token) {
+      console.log("Token exists, adding header...");
+      const headers = new HttpHeaders({
+        "Content-Type" : "application/json",
+        'x-access-token': token
+      });
+      request = request.clone({ headers });
+    } else {
+      console.log("Token not found.");
     }
     return this.handle(next, request);
+    
   }
-  getToken() {
+  private getToken() : string | null {
     return sessionStorage.getItem('token')
   }
   getUserInfo() {

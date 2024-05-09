@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { login } from './api_end_point';
+import { ActivatedRoute } from '@angular/router';
 var CryptoJS = require("crypto-js");
 
 @Injectable({
@@ -14,7 +15,7 @@ export class HttpService {
    formData$ = this.formDataSubject.asObservable();
   private snackBarSubject = new BehaviorSubject<any>(null);
    snackBarData$ = this.snackBarSubject.asObservable()
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private activatedRoute: ActivatedRoute) { }
  
 
   setHeaders():any {
@@ -22,7 +23,7 @@ export class HttpService {
       "Content-Type" : "application/json",
       "x-access-token": `${this.getToken()}`,
   });
-  return headers;
+  return {headers};
 }
 getToken() {
   return sessionStorage.getItem("token");
@@ -31,16 +32,17 @@ getToken() {
 
    getMethod(url:string ,body:any={}):Observable<any>{
     console.log("token",this.getToken())
+    const headers = this.getToken() ? this.setHeaders() : {};
     if(body){
-      return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
+      return this.http.get(this.baseUrl + url).pipe((catchError(this.errorHandler.bind)))
     }
-    return this.http.get(this.baseUrl + url , this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
+    return this.http.get(this.baseUrl + url).pipe((catchError(this.errorHandler.bind)))
    }
    allPostMethod(url:string,body:any){
     if(url === login.AUTH_LOGIN){
       return this.http.post(this.baseUrl + url ,body).pipe((catchError(this.errorHandler.bind)))
     }
-    return this.http.post(this.baseUrl + url , body ,this.getToken() ? this.setHeaders() : {}).pipe((catchError(this.errorHandler.bind)))
+    return this.http.post(this.baseUrl + url , body).pipe((catchError(this.errorHandler.bind)))
    }
 
     private errorHandler(response: any) {
@@ -76,5 +78,8 @@ updateSnackBarData(snackbarData:any){
 }
  getOutSideMethod(baseURL:string){
   return this.http.get(baseURL)
+ }
+ getRouterInformation():any{
+   return this.activatedRoute;
  }
 }
