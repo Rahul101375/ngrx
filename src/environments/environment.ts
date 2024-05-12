@@ -1,5 +1,5 @@
 let base_uri2 = 'https://stgmotapi.dhwaniris.in/web/api/';
-let baseURL = "https://stg_idhinstep.dhwaniris.in/web/api/";
+let baseURL = "https://uat_idhinstep.dhwaniris.in/web/api/";
 
 let origin = window.location.hostname;
 let secretKey ="1234";

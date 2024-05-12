@@ -23,7 +23,8 @@ export interface RootReducerState {
   country : dashboard.CountryReducerState,
   resourceGlossary : resource.ResourceGlossaryState,
   // impactStory : impactStory.ImpactStoryReducerState,
-  resourceSubCategory : resource.ResourceSubCategoryState
+  resourceSubCategory : resource.ResourceSubCategoryState,
+  resourceSubCategoryReport : resource.ResourceSubCategoryReportState
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
@@ -46,7 +47,8 @@ export const rootReducer : ActionReducerMap<RootReducerState> = {
   country : dashboard.CountryReducer,
   resourceGlossary : resource.GlossaryReducer,
   // impactStory : impactStory.ImpactStoryReducer,
-  resourceSubCategory : resource.ResourceSubCategoryReducer
+  resourceSubCategory : resource.ResourceSubCategoryReducer,
+  resourceSubCategoryReport : resource.ResourceSubCategoryReportReducer
 }
 
 export const getUserState = (state : RootReducerState) => state.users;
@@ -156,3 +158,9 @@ export const getResourceSubCategoryState = (state:RootReducerState)=>state.resou
 export const getResourceSubCategoryLoadingForLoading = createSelector(getResourceSubCategoryState,resource.getResourceSubCategoryLoading);
 export const getResourceSubCategoryLoadingForLoaded = createSelector(getResourceSubCategoryState,resource.getResourceSubCategoryLoaded);
 export const getResourceSubCategoryLoadingForData = createSelector(getResourceSubCategoryState,resource.getResourceSubCategoryData);
+
+export const getResourceSubCategoryReportState = (state:RootReducerState)=>state.resourceSubCategoryReport;
+
+export const getResourceSubCategoryReportForLoading = createSelector(getResourceSubCategoryReportState,resource.getResourceSubCategoryReportLoading);
+export const getResourceSubCategoryReportForLoaded = createSelector(getResourceSubCategoryReportState,resource.getResourceSubCategoryReportLoaded);
+export const getResourceSubCategoryReportForData = createSelector(getResourceSubCategoryReportState,resource.getResourceSubCategoryReportData);

@@ -1,6 +1,6 @@
 
 import { Action } from "../actions";
-import { RESOURCE_GLOSSARY_FAILED_REQUEST, RESOURCE_GLOSSARY_LIST_REQUEST, RESOURCE_GLOSSARY_SUCCESS_REQUEST, RESOURCE_SUBCATEGORY_LIST_REQUEST, RESOURCE_SUBCATEGORY_SUCCESS_REQUEST } from "../actions/resource-action"
+import { RESOURCE_GLOSSARY_FAILED_REQUEST, RESOURCE_GLOSSARY_LIST_REQUEST, RESOURCE_GLOSSARY_SUCCESS_REQUEST, RESOURCE_SUBCATEGORY_LIST_REQUEST, RESOURCE_SUBCATEGORY_REPORT_FAILED_REQUEST, RESOURCE_SUBCATEGORY_REPORT_LIST_REQUEST, RESOURCE_SUBCATEGORY_REPORT_SUCCESS_REQUEST, RESOURCE_SUBCATEGORY_SUCCESS_REQUEST } from "../actions/resource-action"
 
 export interface ResourceGlossaryState {
     loading:boolean;
@@ -23,6 +23,17 @@ const resourceSubCategoryInitialState : ResourceSubCategoryState = {
     loaded:false,
     loading:false,
     subCategory:[]
+}
+export interface ResourceSubCategoryReportState {
+    loading:boolean;
+    loaded:boolean;
+    subCategoryReport:any;
+}
+
+const resourceSubCategoryReportInitialState : ResourceSubCategoryReportState = {
+    loaded:false,
+    loading:false,
+    subCategoryReport:[]
 }
 
 export function GlossaryReducer(state = resourceGlossaryInitialState ,action:Action):ResourceGlossaryState {
@@ -86,3 +97,30 @@ export function ResourceSubCategoryReducer(state = resourceSubCategoryInitialSta
 export const getResourceSubCategoryLoaded = (state:ResourceSubCategoryState)=>state.loaded;
 export const getResourceSubCategoryLoading = (state:ResourceSubCategoryState)=>state.loading;
 export const getResourceSubCategoryData = (state:ResourceSubCategoryState)=>state.subCategory
+
+export function ResourceSubCategoryReportReducer(state = resourceSubCategoryReportInitialState , action:Action) : ResourceSubCategoryReportState{
+    switch(action.type){
+        case RESOURCE_SUBCATEGORY_REPORT_LIST_REQUEST : {
+            return {
+                ...state,
+                loading:true,
+            }
+        }
+        case RESOURCE_SUBCATEGORY_REPORT_SUCCESS_REQUEST : {
+            const updateSubCategoryReport = state.subCategoryReport.concat(action.payload.data)
+            return {
+                ...state,
+                loaded:true,
+                loading:false,
+                subCategoryReport : updateSubCategoryReport
+            }
+        }
+        default :{
+            return state
+        }
+    }
+}
+
+export const getResourceSubCategoryReportLoading = (state:ResourceSubCategoryReportState)=>state.loading;
+export const getResourceSubCategoryReportLoaded = (state:ResourceSubCategoryReportState)=>state.loaded;
+export const getResourceSubCategoryReportData = (state:ResourceSubCategoryReportState)=>state.subCategoryReport

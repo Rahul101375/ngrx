@@ -28,3 +28,13 @@
         </div>
     </ng-container>
 </div>
+
+<ng-container *ngFor="let item of product$ | async;">
+    <pre>
+       >>>>>> {{item}}
+    </pre>
+</ng-container>
+
+<pre>
+    >>>>>> {{product$ | async}}
+</pre>
