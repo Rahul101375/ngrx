@@ -3,8 +3,8 @@ import { Store } from "@ngrx/store";
 import { ApiService } from 'src/app/service/api.service';
 import { User } from "../models/user";
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { RootReducerState, getResourceGlossaryDataForGlossaryData, getResourceGlossaryLoadedForGlossaryLoaded, getResourceGlossaryLoadingForGlossaryLoading, getResourceSubCategoryLoadingForData, getResourceSubCategoryLoadingForLoaded, getResourceSubCategoryLoadingForLoading } from "../reducers";
-import { GlossaryListRequest, GlossarySuccessRequest, ResourceSubCategoryListRequest, ResourceSubCategorySuccessRequest } from "../actions/resource-action";
+import { RootReducerState, getResourceGlossaryDataForGlossaryData, getResourceGlossaryLoadedForGlossaryLoaded, getResourceGlossaryLoadingForGlossaryLoading, getResourceSubCategoryLoadingForData, getResourceSubCategoryLoadingForLoaded, getResourceSubCategoryLoadingForLoading, getResourceSubCategoryReportForData, getResourceSubCategoryReportForLoaded, getResourceSubCategoryReportForLoading } from "../reducers";
+import { GlossaryListRequest, GlossarySuccessRequest, ResourceSubCategoryListRequest, ResourceSubCategoryReportListRequest, ResourceSubCategoryReportSuccessRequest, ResourceSubCategorySuccessRequest } from "../actions/resource-action";
 
 
 
@@ -39,6 +39,21 @@ export class ResourceDataService {
                 this.store.dispatch(new ResourceSubCategoryListRequest())
                 this.apiService.getAllUser(endPoint).subscribe(res => {
                     this.store.dispatch(new ResourceSubCategorySuccessRequest({ data: res }))
+                })
+            }
+        })
+        return [loaded$, getUserData]
+    }
+    getSubCategoryReportList(endPoint:string, reportId:string='',force: boolean = false): [Observable<boolean>, Observable<User[]>] {
+        const loading$ = this.store.select(getResourceSubCategoryReportForLoading);
+        const loaded$ = this.store.select(getResourceSubCategoryReportForLoaded);
+        const getUserData = this.store.select(getResourceSubCategoryReportForData);
+        combineLatest([loaded$, loading$]).subscribe((data) => {
+            if (((!data[0] && !data[1]) || reportId != '') || force ) {
+                reportId = ''
+                this.store.dispatch(new ResourceSubCategoryReportListRequest())
+                this.apiService.getAllUser(endPoint).subscribe(res => {
+                    this.store.dispatch(new ResourceSubCategoryReportSuccessRequest({ data: res }))
                 })
             }
         })

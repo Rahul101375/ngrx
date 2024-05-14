@@ -58,7 +58,7 @@ export function GlossaryReducer(state = resourceGlossaryInitialState ,action:Act
         }
     }
 }
-
+ 
 export const getResourceGlossaryLoading = (state : ResourceGlossaryState)=>state.loading;
 export const getResourceGlossaryLoaded = (state : ResourceGlossaryState)=>state.loaded;
 export const getResourceGlossaryData = (state : ResourceGlossaryState)=>state.resourceGlossary;

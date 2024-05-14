@@ -42,12 +42,8 @@ import { SnackBarComponent } from './shared/commonComponents/snack-bar/snack-bar
 import { ForgetPasswordComponent } from './container/pages/forget-password/forget-password.component';
 import { UserListComponent } from './container/admin/permission/user-list/user-list.component';
 import { InterceptorInterceptor } from './container/admin/interceptor/interceptor.interceptor';
-
-import { ResourceEffects } from './effects/resource.effects';
-import { EffectsModule, USER_PROVIDED_EFFECTS } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { resourceSubCategoryReport } from './reducers/resource-view-reducer';
 export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -102,9 +98,8 @@ export function httpTranslateLoader(http: HttpClient):TranslateHttpLoader {
         deps:[HttpClient]
       },
     }),
-    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([ResourceEffects])
+    // EffectsModule.forRoot([ResourceEffects])
   ],
   providers: [
     CookieService,

@@ -3,6 +3,7 @@ import * as fromUser from './user-reducer';
 import * as dashboard from './daashboard-reducer';
 import * as resource from './resource-reducer'
 import * as impactStory from './impact-story-reducer'
+import * as resourceView  from './resource-view-reducer'
 export interface RootReducerState {
   users : fromUser.UserReducerState;
   category : fromUser.CategoryReducerState;
@@ -24,7 +25,9 @@ export interface RootReducerState {
   resourceGlossary : resource.ResourceGlossaryState,
   // impactStory : impactStory.ImpactStoryReducerState,
   resourceSubCategory : resource.ResourceSubCategoryState,
-  resourceSubCategoryReport : resource.ResourceSubCategoryReportState
+  resourceSubCategoryReport : resource.ResourceSubCategoryReportState,
+  // resourceSubCategoryReportView:resourceView.ResourceSubCategoryReport
+  // resourceSubCategoryReportEffect : resourceView.ResourceSubCategoryReport
 }
 
 export const rootReducer : ActionReducerMap<RootReducerState> = {
@@ -48,7 +51,10 @@ export const rootReducer : ActionReducerMap<RootReducerState> = {
   resourceGlossary : resource.GlossaryReducer,
   // impactStory : impactStory.ImpactStoryReducer,
   resourceSubCategory : resource.ResourceSubCategoryReducer,
-  resourceSubCategoryReport : resource.ResourceSubCategoryReportReducer
+  resourceSubCategoryReport : resource.ResourceSubCategoryReportReducer,
+  // resourceSubCategoryReportView:resourceView.resourceSubCategoryReport
+  // resourceSubCategoryReportEffect : resourceView.resourceSubCategoryReport
+
 }
 
 export const getUserState = (state : RootReducerState) => state.users;
@@ -164,3 +170,6 @@ export const getResourceSubCategoryReportState = (state:RootReducerState)=>state
 export const getResourceSubCategoryReportForLoading = createSelector(getResourceSubCategoryReportState,resource.getResourceSubCategoryReportLoading);
 export const getResourceSubCategoryReportForLoaded = createSelector(getResourceSubCategoryReportState,resource.getResourceSubCategoryReportLoaded);
 export const getResourceSubCategoryReportForData = createSelector(getResourceSubCategoryReportState,resource.getResourceSubCategoryReportData);
+
+// export const getResourceSubCategoryReportEffectState = (state:RootReducerState) => state.resourceSubCategoryReportEffect;
+// export const getResourceSubCategoryReportEffectData = createSelector(getResourceSubCategoryReportEffectState,resourceView.getResourceSubCategoryReportData)

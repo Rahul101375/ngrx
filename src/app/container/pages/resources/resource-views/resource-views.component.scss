@@ -2,3 +2,14 @@
     background: linear-gradient(45deg, #1eb0c438, transparent);
     border-radius: 14px;
 }
+.columnGap{
+    column-gap: 10px;
+}
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }

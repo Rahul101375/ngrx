@@ -7,7 +7,7 @@ export const RESOURCE_SUBCATEGORY_FAILED_REQUEST = "subcategory failed request"
 export const RESOURCE_SUBCATEGORY_REPORT_LIST_REQUEST = "subcategory report list request"
 export const RESOURCE_SUBCATEGORY_REPORT_SUCCESS_REQUEST = "subcategory report success request"
 export const RESOURCE_SUBCATEGORY_REPORT_FAILED_REQUEST = "subcategory report failed request"
-
+ 
 export class GlossaryListRequest {
     readonly type = RESOURCE_GLOSSARY_LIST_REQUEST
 }
